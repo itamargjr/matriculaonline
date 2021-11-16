@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+    
+    	<p:messages />
+			
+		<p:panel header="Preencha os dados abaixo para realizar a inscrição">
+
+    		<h:form id="formcadastro">
+    		
+    			<p:growl id="growl" showDetail="true" sticky="true" /> 
+    		
+    			<p:panel header="Dados do Candidato">
+    				<div class="ObjetosLinha">
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Data de Nascimento" />
+							<p:inputText  onfocus="Data(this)" value="#{edu_matr_candidatoBean.candidato.nascimento_candidato}" class="TamanhoMIN" required="true" requiredMessage="por favor informe a data de nascimento">
+								<p:ajax listener="#{edu_matr_candidatoBean.calculaidade()}" update=":formcadastro " />
+							</p:inputText>
+						</div>
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Nome do Candidato"/>
+      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidato.nome_candidato}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o nome do candidato"/>
+      					</div>        					
+						<div class="ObjetosColuna">
+							<p:outputLabel id="olIdade" value="Idade em 31/03/2022"  rendered="#{edu_matr_candidatoBean.idade != ''}" />
+							<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.idade} anos e #{edu_matr_candidatoBean.meses} meses" styleClass="TamanhoPP" rendered="#{edu_matr_candidatoBean.idade != ''}" disabled="true"/>
+						</div>
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Bairro Candidato" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.bairro_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe o bairro que o candidato reside">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="Bairro da Mina" itemLabel="Bairro da Mina" />
+								<f:selectItem itemValue="Cabral" itemLabel="Cabral" /> 
+								<f:selectItem itemValue="Cabuis" itemLabel="Cabuis" />
+								<f:selectItem itemValue="Centro" itemLabel="Centro" />
+								<f:selectItem itemValue="Frigorífico" itemLabel="Frigorífico" />
+								<f:selectItem itemValue="Manoel Reis" itemLabel="Manoel Reis" />
+								<f:selectItem itemValue="N. S. de Fátima" itemLabel="N. S. de Fátima" />
+								<f:selectItem itemValue="Nova Cidade" itemLabel="Nova Cidade" />
+								<f:selectItem itemValue="Novo Horizonte" itemLabel="Novo Horizonte" />
+								<f:selectItem itemValue="Olinda" itemLabel="Olinda" />
+								<f:selectItem itemValue="Paiol" itemLabel="Paiol" />
+								<f:selectItem itemValue="Santos Dumont" itemLabel="Santos Dumont" />
+								<f:selectItem itemValue="Tropical" itemLabel="Tropical" />
+								<f:selectItem itemValue="Outro" itemLabel="Outro Município" />									
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="ObjetosLinha">
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Sexo" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.sexo_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe o sexo">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="M" itemLabel="Masculino" />
+								<f:selectItem itemValue="F" itemLabel="Feminino" /> 
+								<f:selectItem itemValue="N" itemLabel="Não Binário" />								
+							</p:selectOneMenu>
+						</div>
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Estado Civil" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.estciv_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe o estado civil">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="S" itemLabel="Solteiro" />
+								<f:selectItem itemValue="C" itemLabel="Casado" /> 
+								<f:selectItem itemValue="V" itemLabel="Viúvo" />
+								<f:selectItem itemValue="D" itemLabel="Divorciado/Separado" />								
+							</p:selectOneMenu>
+						</div>
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Nacionalidade" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.nacionalidade_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe a nacionalidade">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="BRASILEIRA" itemLabel="Brasileira" />
+								<f:selectItem itemValue="OUTRA" itemLabel="Outra" />								
+							</p:selectOneMenu>
+						</div>
+					</div>
+				</p:panel>
+				<p:panel header="Filiação do Candidato">
+					<div class="ObjetosLinha">    					
+						<div class="ObjetosColuna">
+      						<p:outputLabel value="Nome da Mãe"/>
+      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidato.mae_candidato}" styleClass="TamanhoM"/>
+      					</div>  
+      					<div class="ObjetosColuna">
+      						<p:outputLabel value="Nome do Pai"/>
+      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidato.pai_candidato}" styleClass="TamanhoM"/>
+      					</div> 
+      				</div>
+	      		</p:panel>
+	      		<p:panel header="Candidato possui irmãos na rede de ensino de Nilópolis">
+<!-- 	      			<div class="ObjetosLinha">  -->
+<!-- 	      				<div class="ObjetosColuna"> -->
+<!-- 	      					<p:selectBooleanCheckbox value="#{edu_matr_candidatoBean.irmaonaescola}" itemLabel="Possui irmãos na escola?" > -->
+<!-- 	      						<p:ajax listener="#{edu_matr_candidatoBean.getIrmaonaescola()}"  update="grupoirmaos"  /> -->
+<!-- 	      					</p:selectBooleanCheckbox> -->
+<!-- 	      				</div> -->
+<!-- 	      			</div> -->
+	      			<h:panelGroup id="grupoirmaos" >
+					<div class="ObjetosLinha">    					
+						<div class="ObjetosColuna">
+      						<p:outputLabel id="lblIrmao" value="Nome do irmão ou irmã" />
+      						<p:inputText id="txtIrmao" onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidato.nomeirmao_candidato}" styleClass="TamanhoM"/>
+      					</div>  
+      					<div class="ObjetosColuna">
+							<p:outputLabel id="lblEscolairmao" value="Escola onde o irmão ou irmã estuda"/>
+							<p:selectOneMenu id="comboEscolaIrmao" value="#{edu_matr_candidatoBean.candidato.id_escola}" styleClass="TamanhoSelectM" >
+      							<f:selectItem itemValue="0" itemLabel="" />
+								<f:selectItems value="#{edu_matr_candidatoBean.escolalista}" var="esc" itemValue="#{esc.id_escola}" itemLabel="#{esc.nome_escola}" /> 
+							</p:selectOneMenu>
+      					</div> 
+      				</div>
+      				</h:panelGroup>
+	      		</p:panel>
+				<p:panel header="Contato do Candidato">	
+					<div class="ObjetosLinha">  	
+      					<div class="ObjetosColuna">
+							<p:outputLabel value="Email"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.candidato.email_candidato}" styleClass="TamanhoG" required="true" requiredMessage="por favor informe o email"/>
+      					</div> 
+      				</div>  	
+      				<div class="ObjetosLinha">  			  					
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Telefone ou celular"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.candidato.celular_candidato}" styleClass="TamanhoM"/>
+      					</div> 
+      					
+      					<div class="ObjetosColuna">
+							<p:outputLabel value="Telefone ou celular"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.candidato.fixo_candidato}" styleClass="TamanhoM"/>
+      					</div>
+					</div>
+      			</p:panel> 
+      			<p:panel header="Endereço do Candidato">	
+					<div class="ObjetosLinha">
+						<div class="ObjetosColuna">
+	  						<p:outputLabel value="Logradouro"/>
+	            			<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.endereco.logradouro_endereco}" maxlength="30" styleClass="TextoCaixaAlta TamanhoG" required="true" requiredMessage="por favor informe o logradouro"/>
+      					</div>
+      				</div>
+     				<div class="ObjetosLinha">
+		      			<div class="ObjetosColuna">
+     						<p:outputLabel value="Número"/>
+		            		<p:inputText value="#{edu_matr_candidatoBean.endereco.numero_endereco}" maxlength="5" styleClass="TextoCaixaAlta TamanhoMIN" required="true" requiredMessage="por favor informe o número"/>
+	      				</div>
+		      		
+	      				<div class="ObjetosColuna">
+	     					<p:outputLabel value="Compl"/>
+		            		<p:inputText value="#{edu_matr_candidatoBean.endereco.complemento_endereco}" maxlength="5" styleClass="TextoCaixaAlta TamanhoMIN"/>
+	      				</div>
+	      				<div class="ObjetosColuna">
+							<p:outputLabel value="Bairro" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.endereco.bairro_endereco}" styleClass="TamanhoSelectM" required="true" requiredMessage="por favor informe o bairro">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="Bairro da Mina" itemLabel="Bairro da Mina" />
+								<f:selectItem itemValue="Cabral" itemLabel="Cabral" /> 
+								<f:selectItem itemValue="Cabuis" itemLabel="Cabuis" />
+								<f:selectItem itemValue="Centro" itemLabel="Centro" />
+								<f:selectItem itemValue="Frigorífico" itemLabel="Frigorífico" />
+								<f:selectItem itemValue="Manoel Reis" itemLabel="Manoel Reis" />
+								<f:selectItem itemValue="N. S. de Fátima" itemLabel="N. S. de Fátima" />
+								<f:selectItem itemValue="Nova Cidade" itemLabel="Nova Cidade" />
+								<f:selectItem itemValue="Novo Horizonte" itemLabel="Novo Horizonte" />
+								<f:selectItem itemValue="Olinda" itemLabel="Olinda" />
+								<f:selectItem itemValue="Paiol" itemLabel="Paiol" />
+								<f:selectItem itemValue="Santos Dumont" itemLabel="Santos Dumont" />
+								<f:selectItem itemValue="Tropical" itemLabel="Tropical" />
+								<f:selectItem itemValue="Outro" itemLabel="Outro Município" />								
+							</p:selectOneMenu>
+						</div>
+						<div class="ObjetosColuna">
+     						<p:outputLabel value="CEP"/>
+		        			<p:inputText onfocus="Cep(this)" value="#{edu_matr_candidatoBean.endereco.cep_endereco}" maxlength="11" styleClass="TextoCaixaAlta TamanhoMIN" required="true" requiredMessage="por favor informe o CEP"/>
+						</div>					
+	      			</div>	
+    			</p:panel>
+    			<p:panel header="Dados do Responsável">
+					<div class="ObjetosLinha">    					
+						<div class="ObjetosColuna">
+      						<p:outputLabel value="Nome do Responsável"/>
+      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.responsavel.nome_responsavel}" styleClass="TamanhoM"/>
+      					</div>  
+      					<div class="ObjetosColuna">
+							<p:outputLabel value="Tipo" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.responsavel.tipo_responsavel}" styleClass="TamanhoSelectM" required="true" requiredMessage="por favor informe o bairro">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItem itemValue="P" itemLabel="Pai" />
+								<f:selectItem itemValue="M" itemLabel="Mãe" /> 
+								<f:selectItem itemValue="A" itemLabel="Avô" />
+								<f:selectItem itemValue="V" itemLabel="Avó" />
+								<f:selectItem itemValue="O" itemLabel="Outro" />							
+							</p:selectOneMenu>
+						</div> 
+      				</div>
+      				<div class="ObjetosLinha">
+      					<div class="ObjetosColuna">
+      						<p:outputLabel value="Email Responsavel"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.responsavel.email_responsavel}" styleClass="TamanhoM"/>
+      					</div>
+      					<div class="ObjetosColuna">
+      						<p:outputLabel value="Telefone Responsavel"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.responsavel.celular_responsavel}" styleClass="TamanhoM"/>
+      					</div>
+      				</div>
+	      		</p:panel>
+	      		<p:panel header="Necessidade Especial">
+					<div class="ObjetosLinha">    					
+	      				<div class="ObjetosColuna">
+	      					<p:selectBooleanCheckbox value="#{edu_matr_candidatoBean.candidato.necespec_candidato}" itemLabel="Candidato é portador de necessidades especiais?" />
+	      				</div>
+      					<div class="ObjetosColuna">
+							<p:outputLabel value="Tipo" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.cid_candidato}" styleClass="TamanhoSelectM">
+								<f:selectItems value="#{cid10Bean.cid10lista}"  var="cid" itemValue="cid.codigo_cid10" itemLabel="cid.descricao_cid10"/>							
+							</p:selectOneMenu>
+						</div> 
+      				</div>
+	      		</p:panel>
+	      		<p:panel header="Opção Selecionada">
+	      			<div class="ObjetosLinha">
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Etapa de Ensino a Cursar em 2022" />
+							<p:inputText id="edtEtapa" value="#{edu_matr_candidatoBean.etapaensino}" maxlength="5" styleClass="TextoCaixaAlta TamanhoP" readonly="true"/>
+						</div>
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Ano Escolar a Cursar em 2022" />
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.etapaensinoanos}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o ano escolar">
+								<f:selectItem itemValue="" itemLabel=""/>
+								<f:selectItems value="#{edu_matr_candidatoBean.modensinoanoslistastr}" />									
+								
+								<p:ajax listener="#{edu_matr_candidatoBean.filtraescolas()}" update="listacheck" />						
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<div class="ObjetosLinha">
+						<div class="ObjetosColuna">
+							<p:outputLabel value="Selecione até 3 (três) opções de escolas" />
+							<p:selectManyMenu id="listacheck" widgetVar="basic2" value="#{edu_matr_candidatoBean.escolasselecionadas}" showCheckbox="true">
+            					<f:selectItems value="#{edu_matr_candidatoBean.escolasorigem}" />
+        					</p:selectManyMenu>					
+
+						</div>
+					</div>
+	      		</p:panel>	 
+         			<br/>
+         			
+			     	<p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.ConcluirInscricao()}" value="Concluir Inscrição" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />      			
+      			
+      		</h:form>
+   	  </p:panel>
+
+    </ui:define>
+  </ui:composition>   
+</html>
+
+

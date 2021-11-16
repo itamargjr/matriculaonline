@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+    
+    	<p:messages />  	
+			
+		<p:panel header="Preencha os dados abaixo para filtrar sua consulta">
+		
+			<h:form id="formpesquisa">
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{escolaBean.escola.nome_escola}" onfocus="LetraMaiusculaLimite(this, 100)" styleClass="TamanhoM" />
+					</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value="Bairro" />
+						<p:selectOneMenu value="#{escolaBean.escola.bairro_escola}" styleClass="TamanhoSelectMIN">
+							<f:selectItem itemValue="" itemLabel="" />
+							<f:selectItem itemValue="Bairro da Mina" itemLabel="Bairro da Mina" />
+							<f:selectItem itemValue="Cabral" itemLabel="Cabral" /> 
+							<f:selectItem itemValue="Cabuis" itemLabel="Cabuis" />
+							<f:selectItem itemValue="Centro" itemLabel="Centro" />
+							<f:selectItem itemValue="Frigorífico" itemLabel="Frigorífico" />
+							<f:selectItem itemValue="Manoel Reis" itemLabel="Manoel Reis" />
+							<f:selectItem itemValue="N. S. de Fátima" itemLabel="N. S. de Fátima" />
+							<f:selectItem itemValue="Nova Cidade" itemLabel="Nova Cidade" />
+							<f:selectItem itemValue="Novo Horizonte" itemLabel="Novo Horizonte" />
+							<f:selectItem itemValue="Olinda" itemLabel="Olinda" />
+							<f:selectItem itemValue="Paiol" itemLabel="Paiol" />
+							<f:selectItem itemValue="Santos Dumont" itemLabel="Santos Dumont" />
+							<f:selectItem itemValue="Tropical" itemLabel="Tropical" />								
+						</p:selectOneMenu>
+					</div>
+				</div>
+      			
+      			<br/>
+         			
+		     	<p:commandButton styleClass="BotaoPrimario" action="#{escolaBean.buscar()}" value="Buscar" ajax="false" update=":formcadastro"/>
+      			 			
+			</h:form>
+		</p:panel>
+		
+    	<h:form id="formcadastro" rendered="#{not empty escolaBean.escolalista}">
+    		<p:dataGrid var="escola" value="#{escolaBean.escolalista}" columns="3" layout="grid"  rows="12" paginator="true" id="escolas"
+        		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        		rowsPerPageTemplate="6,12,16">
+         
+        		<f:facet name="header">
+		            Escolas Municipais - Nilópolis
+        		</f:facet>
+ 
+        		<p:panel header="#{escola.nome_escola}" style="text-align:center">
+		            <h:panelGrid columns="1" style="width:100%">
+                		<p:graphicImage url="http://nilopolisdigital.com/imagens/brasaonilopolispeq.jpg"/> 
+		 
+               			<h:outputText value="#{escola.bairro_escola}" />
+		 
+               			<p:commandLink update=":formcadastro:detalheEscola" oncomplete="PF('escolaDialogo').show()" title="View Detail">
+                		<h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+		                    <f:setPropertyActionListener value="#{escola}" target="#{escolaBean.escola}" />
+                		</p:commandLink>
+            		</h:panelGrid>
+        		</p:panel>
+ 
+    		</p:dataGrid>	
+    		
+    		<p:dialog header="Informações da Escola" widgetVar="escolaDialogo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        		<p:outputPanel id="detalheEscola" style="text-align:center;">
+            		<p:panelGrid  columns="2" rendered="#{not empty escolaBean.escolalista}" columnClasses="label,value">
+                		<f:facet name="header">
+                    		<p:graphicImage url="http://nilopolisdigital.com/imagens/brasaonilopolis.png"/> 
+                		</f:facet>
+                 		
+                		<h:outputText value="Nome" />
+                		<h:outputText value="#{escolaBean.escola.nome_escola}" />
+		 
+                		<h:outputText value="Bairro" />
+                		<h:outputText value="#{escolaBean.escola.bairro_escola}" />
+            		</p:panelGrid>
+        		</p:outputPanel>
+    		</p:dialog>
+    		
+      	</h:form>
+   	  		
+
+    </ui:define>
+  </ui:composition>   
+</html>
+
+

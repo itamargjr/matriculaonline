@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+    
+    	<p:messages />  	
+			
+		<p:panel header="Preencha os dados abaixo para consultar sua matrícula">
+		
+			<h:form id="formpesquisa">
+				<div class="ObjetosLinha">  
+					<div class="ObjetosColuna">
+						<p:outputLabel value="Ano Letivo"/>
+	     				<p:inputText onfocus="NumericoInteiroLimite(this,4)" value="#{edu_matr_candidatoBean.candidatoreport.ano_candidato}" styleClass="TamanhoPP" required="true" requiredMessage="por favor informe o ano"/>
+	     			</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value="Data de Nascimento" />
+						<p:inputText  onfocus="Data(this)" value="#{edu_matr_candidatoBean.candidatoreport.nascimento_candidato}" class="TamanhoMIN" required="true" requiredMessage="por favor informe a data de nascimento" />
+					</div>
+				</div>
+				<div class="ObjetosColuna">
+					<p:outputLabel value="Nome do Candidato"/>
+      				<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nome_candidato}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o nome do candidato"/>
+      			</div>
+      			<div class="ObjetosLinha">  	
+      				<div class="ObjetosColuna">
+						<p:outputLabel value="Email"/>
+      					<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.email_candidato}" styleClass="TamanhoG" required="true" requiredMessage="por favor informe o email"/>
+      				</div> 
+      			</div>
+      			
+      			<br/>
+         			
+		     	<p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.buscarcandidato()}" value="Buscar Candidato" ajax="false" update=":formcadastro" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+      			 			
+			</h:form>
+		</p:panel>
+		
+    	<h:form id="formcadastro">
+    		<p:panel rendered="#{edu_matr_candidatoBean.candidatoreport.id_escola1 gt 0}">	
+    			<p:tabView>
+			        <p:tab title="Dados Pessoais">
+			            <div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Nascimento" />
+								<p:inputText  onfocus="Data(this)" value="#{edu_matr_candidatoBean.candidatoreport.nascimento_candidato}" class="TamanhoMIN" disabled="true"/>								
+							</div>
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Nome do Candidato"/>
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nome_candidato}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>        					
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Bairro Candidato" />
+								<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.bairro_candidato}" styleClass="TamanhoP" disabled="true"/>
+							</div>
+						</div>
+						<div class="ObjetosLinha">  	
+	      					<div class="ObjetosColuna">
+								<p:outputLabel value="Email"/>
+	      						<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.email_candidato}" styleClass="TamanhoG" disabled="true"/>
+	      					</div> 
+	      				</div>  	
+	      				<div class="ObjetosLinha">  			  					
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Telefone ou celular"/>
+	      						<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.celular_candidato}" styleClass="TamanhoP" disabled="true"/>
+	      					</div> 
+	      					
+	      					<div class="ObjetosColuna">
+								<p:outputLabel value="Telefone ou celular"/>
+	      						<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.fixo_candidato}" styleClass="TamanhoP" disabled="true"/>
+	      					</div>
+						</div>
+			        </p:tab>
+			        <p:tab title="Filiação">
+			            <div class="ObjetosLinha">    					
+							<div class="ObjetosColuna">
+	      						<p:outputLabel value="Nome da Mãe"/>
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.mae_candidato}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>  
+	      					<div class="ObjetosColuna">
+	      						<p:outputLabel value="Nome do Pai"/>
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.pai_candidato}" styleClass="TamanhoM" disabled="true"/>
+	      					</div> 
+	      				</div>
+			        </p:tab>
+			        <p:tab title="Irmão na rede">
+			            <div class="ObjetosLinha">    					
+							<div class="ObjetosColuna">
+	      						<p:outputLabel value="Nome do irmão ou irmã" />
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nomeirmao_candidato}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>  
+	      					<div class="ObjetosColuna">
+	      						<p:outputLabel value="Escola onde o irmão ou irmã estuda"/>
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nome_escola}" styleClass="TamanhoM" disabled="true"/>
+	      					</div> 
+	      				</div>
+			        </p:tab>
+			        <p:tab title="Endereço">
+			            <div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+		  						<p:outputLabel value="Logradouro"/>
+		            			<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.logradouro_endereco}" maxlength="30" styleClass="TextoCaixaAlta TamanhoG" disabled="true"/>
+	      					</div>
+	      				</div>
+	     				<div class="ObjetosLinha">
+			      			<div class="ObjetosColuna">
+	     						<p:outputLabel value="Número"/>
+			            		<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.numero_endereco}" maxlength="5" styleClass="TextoCaixaAlta TamanhoMIN" disabled="true"/>
+		      				</div>
+			      		
+		      				<div class="ObjetosColuna">
+		     					<p:outputLabel value="Compl"/>
+			            		<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.complemento_endereco}" maxlength="5" styleClass="TextoCaixaAlta TamanhoMIN" disabled="true"/>
+		      				</div>
+		      				<div class="ObjetosColuna">
+								<p:outputLabel value="Bairro" />
+								<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.bairro_endereco}" styleClass="TamanhoM" disabled="true"/>							
+							</div>
+							<div class="ObjetosColuna">
+	     						<p:outputLabel value="CEP"/>
+			        			<p:inputText onfocus="Cep(this)" value="#{edu_matr_candidatoBean.candidatoreport.cep_endereco}" maxlength="11" styleClass="TextoCaixaAlta TamanhoMIN" disabled="true"/>
+							</div>					
+		      			</div>	
+			        </p:tab>
+			        <p:tab title="Responsável">
+			        	<div class="ObjetosLinha">    					
+							<div class="ObjetosColuna">
+	      						<p:outputLabel value="Nome do Responsável"/>
+	      						<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nome_responsavel}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>  
+	      					<div class="ObjetosColuna">
+								<p:outputLabel value="Tipo" />
+								<p:selectOneMenu value="#{edu_matr_candidatoBean.candidatoreport.tipo_responsavel}" styleClass="TamanhoSelectM" disabled="true">
+									<f:selectItem itemValue="" itemLabel="" />
+									<f:selectItem itemValue="P" itemLabel="Pai" />
+									<f:selectItem itemValue="M" itemLabel="Mãe" /> 
+									<f:selectItem itemValue="A" itemLabel="Avô" />
+									<f:selectItem itemValue="V" itemLabel="Avó" />
+									<f:selectItem itemValue="O" itemLabel="Outro" />							
+								</p:selectOneMenu>
+							</div> 
+	      				</div>
+	      				<div class="ObjetosLinha">
+	      					<div class="ObjetosColuna">
+	      						<p:outputLabel value="Email Responsavel"/>
+	      						<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.email_responsavel}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>
+	      					<div class="ObjetosColuna">
+	      						<p:outputLabel value="Telefone Responsavel"/>
+	      						<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.celular_responsavel}" styleClass="TamanhoM" disabled="true"/>
+	      					</div>
+	      				</div>
+			        </p:tab>
+			        <p:tab title="Escolas escolhidas">
+			        	<div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Etapa de Ensino" />
+								<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.descricao_modensino}" maxlength="5" styleClass="TextoCaixaAlta TamanhoP" disabled="true"/>
+							</div>
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Ano Escolar" />
+								<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.descricao_modensinoanos}" maxlength="5" styleClass="TextoCaixaAlta TamanhoP" disabled="true"/>							
+							</div>
+						</div>
+						<div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:outputLabel value="Opções de escolas selecionadas" />												
+							</div>
+						</div>
+						<div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:inputText value="1ª #{edu_matr_candidatoBean.candidatoreport.nome_escola1}" maxlength="5" styleClass="TextoCaixaAlta TamanhoM" disabled="true"/>												
+							</div>
+						</div>
+						<div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:inputText value="2ª #{edu_matr_candidatoBean.candidatoreport.nome_escola2}" maxlength="5" styleClass="TextoCaixaAlta TamanhoM" disabled="true"/>					
+							</div>
+						</div>
+						<div class="ObjetosLinha">
+							<div class="ObjetosColuna">
+								<p:inputText value="3ª #{edu_matr_candidatoBean.candidatoreport.nome_escola3}" maxlength="5" styleClass="TextoCaixaAlta TamanhoM" disabled="true"/>					
+							</div>
+						</div>
+			        </p:tab>
+			    </p:tabView>	 
+         			<br/>
+         			
+			     	<p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.imprimirInscricao()}" value="Imprimir Inscrição" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />      			
+			     	<p:commandButton styleClass="BotaoSecundario" action="#{edu_matr_candidatoBean.reenviarInscricao()}" value="Reenviar Inscrição para Email" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+      		</p:panel>	
+      	</h:form>
+   	  		
+
+    </ui:define>
+  </ui:composition>   
+</html>
+
+
