@@ -67,6 +67,8 @@ public class Edu_matr_candidatoReport {
 	private String necespec_candidato;
 	private String cid_candidato;
 	private String descricao_cid10;
+	
+	private String cpf_candidato;
 
 	public Edu_matr_candidatoReport(Integer id_candidato, Integer id_responsavel, String nome_candidato,
 			String mae_candidato, String pai_candidato, String nascimento_candidato, String alunodarede_candidato,
@@ -82,7 +84,7 @@ public class Edu_matr_candidatoReport {
 			String numero_endereco, String complemento_endereco, String codigo_municipio, String bairro_endereco,
 			String nome_escola1, String nome_escola2, String nome_escola3, String nome_escolaselecionada,
 			String descricao_modensino, String descricao_modensinoanos, String tipo_candidato,
-			String necespec_candidato, String cid_candidato, String descricao_cid10) {
+			String necespec_candidato, String cid_candidato, String descricao_cid10, String cpf_candidato) {
 		super();
 		this.id_candidato = id_candidato;
 		this.id_responsavel = id_responsavel;
@@ -139,10 +141,19 @@ public class Edu_matr_candidatoReport {
 		this.necespec_candidato = necespec_candidato;
 		this.cid_candidato = cid_candidato;
 		this.descricao_cid10 = descricao_cid10;
+		this.cpf_candidato = cpf_candidato;
 	}
 
 	public Edu_matr_candidatoReport() {
 		super();
+	}
+
+	public String getCpf_candidato() {
+		return cpf_candidato;
+	}
+
+	public void setCpf_candidato(String cpf_candidato) {
+		this.cpf_candidato = cpf_candidato;
 	}
 
 	public String getDescricao_cid10() {
@@ -613,6 +624,6 @@ public class Edu_matr_candidatoReport {
 				+ ", descricao_modensino=" + descricao_modensino + ", descricao_modensinoanos="
 				+ descricao_modensinoanos + ", tipo_candidato=" + tipo_candidato + ", necespec_candidato="
 				+ necespec_candidato + ", cid_candidato=" + cid_candidato + ", descricao_cid10=" + descricao_cid10
-				+ "]";
+				+ ", cpf_candidato=" + cpf_candidato + "]";
 	}
 }

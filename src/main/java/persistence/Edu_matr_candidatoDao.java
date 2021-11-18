@@ -37,12 +37,8 @@ public class Edu_matr_candidatoDao extends Dao {
 		
 		open();
 		
-		String statement = "select id_candidato " +
-                "from edu_matr_candidato " +
-                "where " +
-                "  upper(nome_candidato) = upper('" + cand.getNome_candidato()   + "') and " +
-                "  nascimento_candidato  = '" + cand.getNascimento_candidato()   + "'  and " +
-                "  upper(email_candidato) = upper('" + cand.getEmail_candidato() + "')";
+		String statement = "select id_candidato from edu_matr_candidato " +
+                		   "where cpf_candidato = '" + cand.getCpf_candidato()   + "'";
 		
 		stmt = con.prepareStatement(statement);
 		
@@ -80,8 +76,8 @@ public class Edu_matr_candidatoDao extends Dao {
 	                  "redeorigem_candidato, estciv_candidato, sexo_candidato, nacionalidade_candidato, email_candidato, " +
 	                  "celular_candidato, fixo_candidato, bairro_candidato, irmaonaescola_candidato, nomeirmao_candidato, " + 
 	                  "id_escola, id_modensinovagas1, id_modensinovagas2, id_modensinovagas3, " +
-	                  "id_modensinovagas, ano_candidato, id_candidato, tipo_candidato, necespec_candidato, cid_candidato) " +
-		              "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
+	                  "id_modensinovagas, ano_candidato, id_candidato, tipo_candidato, necespec_candidato, cid_candidato, cpf_candidato) " +
+		              "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
 	
 		
 	
@@ -147,6 +143,7 @@ public class Edu_matr_candidatoDao extends Dao {
 		stmt.setString(25, cand.getTipo_candidato());
 		stmt.setString(26, cand.getNecespec_candidato());
 		stmt.setString(27, cand.getCid_candidato());
+		stmt.setString(28, cand.getCpf_candidato());
 
 		Integer linhasafetadas = stmt.executeUpdate();
 		

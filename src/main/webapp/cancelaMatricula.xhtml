@@ -16,19 +16,13 @@
 		
 			<h:form id="formpesquisa">
 				<div class="ObjetosColuna">
-					<p:outputLabel value="Data de Nascimento" />
-					<p:inputText  onfocus="Data(this)" value="#{edu_matr_candidatoBean.candidatoreport.nascimento_candidato}" class="TamanhoMIN" required="true" requiredMessage="por favor informe a data de nascimento" />
-				</div>
+					<p:outputLabel value="Ano Letivo"/>
+     				<p:inputText onfocus="NumericoInteiroLimite(this,4)" value="#{edu_matr_candidatoBean.candidatoreport.ano_candidato}" styleClass="TamanhoPP" required="true" requiredMessage="por favor informe o ano"/>
+     			</div>
 				<div class="ObjetosColuna">
-					<p:outputLabel value="Nome do Candidato"/>
-      				<p:inputText onfocus="StringMaiuscula(this, -1)" value="#{edu_matr_candidatoBean.candidatoreport.nome_candidato}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o nome do candidato"/>
-      			</div>
-      			<div class="ObjetosLinha">  	
-      				<div class="ObjetosColuna">
-						<p:outputLabel value="Email"/>
-      					<p:inputText value="#{edu_matr_candidatoBean.candidatoreport.email_candidato}" styleClass="TamanhoG" required="true" requiredMessage="por favor informe o email"/>
-      				</div> 
-      			</div>
+  					<p:outputLabel value="CPF"/>
+  					<p:inputText onfocus="Numerico(this)" value="#{edu_matr_candidatoBean.candidatoreport.cpf_candidato}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o CPF"/>
+  				</div>
       			
       			<br/>
          			

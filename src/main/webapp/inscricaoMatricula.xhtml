@@ -57,12 +57,15 @@
 					</div>
 					<div class="ObjetosLinha">
 						<div class="ObjetosColuna">
+      						<p:outputLabel value="CPF"/>
+      						<p:inputText onfocus="Cpf(this)" value="#{edu_matr_candidatoBean.candidato.cpf_candidato}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o CPF"/>
+      					</div> 
+						<div class="ObjetosColuna">
 							<p:outputLabel value="Sexo" />
 							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.sexo_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe o sexo">
 								<f:selectItem itemValue="" itemLabel="" />
 								<f:selectItem itemValue="M" itemLabel="Masculino" />
-								<f:selectItem itemValue="F" itemLabel="Feminino" /> 
-								<f:selectItem itemValue="N" itemLabel="Não Binário" />								
+								<f:selectItem itemValue="F" itemLabel="Feminino" /> 								
 							</p:selectOneMenu>
 						</div>
 						<div class="ObjetosColuna">
@@ -125,7 +128,7 @@
 					<div class="ObjetosLinha">  	
       					<div class="ObjetosColuna">
 							<p:outputLabel value="Email"/>
-      						<p:inputText value="#{edu_matr_candidatoBean.candidato.email_candidato}" styleClass="TamanhoG" required="true" requiredMessage="por favor informe o email"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.candidato.email_candidato}" styleClass="TamanhoG"/>
       					</div> 
       				</div>  	
       				<div class="ObjetosLinha">  			  					
@@ -154,7 +157,7 @@
 	      				</div>
 		      		
 	      				<div class="ObjetosColuna">
-	     					<p:outputLabel value="Compl"/>
+	     					<p:outputLabel value="Complemento"/>
 		            		<p:inputText value="#{edu_matr_candidatoBean.endereco.complemento_endereco}" maxlength="5" styleClass="TextoCaixaAlta TamanhoMIN"/>
 	      				</div>
 	      				<div class="ObjetosColuna">
@@ -215,12 +218,12 @@
 	      		<p:panel header="Necessidade Especial">
 					<div class="ObjetosLinha">    					
 	      				<div class="ObjetosColuna">
-	      					<p:selectBooleanCheckbox value="#{edu_matr_candidatoBean.candidato.necespec_candidato}" itemLabel="Candidato é portador de necessidades especiais?" />
+	      					<p:selectBooleanCheckbox value="#{edu_matr_candidatoBean.necespeccandidato}" itemLabel="Candidato é portador de necessidades especiais?" />
 	      				</div>
       					<div class="ObjetosColuna">
 							<p:outputLabel value="Tipo" />
 							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.cid_candidato}" styleClass="TamanhoSelectM">
-								<f:selectItems value="#{cid10Bean.cid10lista}"  var="cid" itemValue="cid.codigo_cid10" itemLabel="cid.descricao_cid10"/>							
+								<f:selectItems value="#{cid10Bean.cid10lista}"  var="cid" itemValue="#{cid.codigo_cid10}" itemLabel="#{cid.descricao_cid10}"/>							
 							</p:selectOneMenu>
 						</div> 
       				</div>

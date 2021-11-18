@@ -240,6 +240,10 @@ public class DSReportCandidato implements JRDataSource {
 			return registro.getDescricao_cid10();
 		}
 		
+		if(field.getName().equalsIgnoreCase("cpf_candidato")){
+			return registro.getCpf_candidato();
+		}
+		
 		return null;
 	}
 

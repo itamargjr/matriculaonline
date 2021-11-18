@@ -32,6 +32,8 @@ public class Edu_matr_candidato {
 	private String tipo_candidato;
 	private String necespec_candidato;
 	private String cid_candidato;
+	
+	private String cpf_candidato;
 
 	public Edu_matr_candidato(Integer id_candidato, Integer id_responsavel, String nome_candidato, String mae_candidato,
 			String pai_candidato, String nascimento_candidato, String alunodarede_candidato,
@@ -40,7 +42,7 @@ public class Edu_matr_candidato {
 			String bairro_candidato, String irmaonaescola_candidato, String nomeirmao_candidato, Integer id_escola,
 			Integer id_modensinovagas1, Integer id_modensinovagas2, Integer id_modensinovagas3,
 			Integer id_modensinovagas, Integer ano_candidato, String tipo_candidato, String necespec_candidato,
-			String cid_candidato) {
+			String cid_candidato, String cpf_candidato) {
 		super();
 		this.id_candidato = id_candidato;
 		this.id_responsavel = id_responsavel;
@@ -69,6 +71,7 @@ public class Edu_matr_candidato {
 		this.tipo_candidato = tipo_candidato;
 		this.necespec_candidato = necespec_candidato;
 		this.cid_candidato = cid_candidato;
+		this.cpf_candidato = cpf_candidato;
 	}
 
 	public Edu_matr_candidato() {
@@ -81,6 +84,14 @@ public class Edu_matr_candidato {
 		this.nome_candidato = nome_candidato;
 		this.mae_candidato = mae_candidato;
 		this.nascimento_candidato = nascimento_candidato;
+	}
+
+	public String getCpf_candidato() {
+		return cpf_candidato;
+	}
+
+	public void setCpf_candidato(String cpf_candidato) {
+		this.cpf_candidato = cpf_candidato;
 	}
 
 	public String getTipo_candidato() {
@@ -314,6 +325,6 @@ public class Edu_matr_candidato {
 				+ ", id_modensinovagas2=" + id_modensinovagas2 + ", id_modensinovagas3=" + id_modensinovagas3
 				+ ", id_modensinovagas=" + id_modensinovagas + ", ano_candidato=" + ano_candidato + ", tipo_candidato="
 				+ tipo_candidato + ", necespec_candidato=" + necespec_candidato + ", cid_candidato=" + cid_candidato
-				+ "]";
+				+ ", cpf_candidato=" + cpf_candidato + "]";
 	}
 }

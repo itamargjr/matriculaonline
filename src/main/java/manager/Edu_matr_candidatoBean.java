@@ -69,6 +69,7 @@ public class Edu_matr_candidatoBean {
     public String dadosemailhtml;
     
     public Boolean irmaonaescola;
+    public Boolean necespeccandidato;
 
 	public Edu_matr_candidatoBean() {
 		
@@ -83,6 +84,14 @@ public class Edu_matr_candidatoBean {
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "")); // passa a mensagem
 		}
+	}
+
+	public Boolean getNecespeccandidato() {
+		return necespeccandidato;
+	}
+
+	public void setNecespeccandidato(Boolean necespeccandidato) {
+		this.necespeccandidato = necespeccandidato;
 	}
 
 	public Integer getMeses() {
@@ -288,7 +297,13 @@ public class Edu_matr_candidatoBean {
 		candidato.setAno_candidato(2022);
 		candidato.setTipo_candidato("E");
 		
-		//System.out.println("Candidato: " + candidato);
+		if (necespeccandidato) {
+			candidato.setNecespec_candidato("S");
+		} else {
+			candidato.setNecespec_candidato("N");
+		}
+		
+		System.out.println("Candidato: " + candidato);
 		
 		try {						
 			
@@ -359,8 +374,6 @@ public class Edu_matr_candidatoBean {
 				} else {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Candidato gravado com sucesso", "")); // passa a mensagem
 					
-					limpaformulario();				
-					
 					FacesContext context = FacesContext.getCurrentInstance();
 					
 					String mensagesucesso = "";
@@ -376,8 +389,9 @@ public class Edu_matr_candidatoBean {
 	 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
 	 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
 	 								"nilopolisdigital.com/matriculasonline";
-					}				
+					}	
 					
+					limpaformulario();					
 			         
 			        context.addMessage(null, new FacesMessage("Successful",  mensagesucesso) );
 				}
@@ -438,18 +452,7 @@ public class Edu_matr_candidatoBean {
 			etapaensino = "EDUCAÇÃO INFANTIL";
 			etapaensinoid = 1;
 			
-			switch (idadeInt){
-            case 1:
-            	modensinoanoslistastr.add("INFANTIL 1");
-            case 2:
-            	modensinoanoslistastr.add("INFANTIL 2");
-            case 3:
-            	modensinoanoslistastr.add("INFANTIL 3");
-            case 4:
-            	modensinoanoslistastr.add("INFANTIL 4");
-            case 5:
-            	modensinoanoslistastr.add("INFANTIL 5");
-			}			
+			modensinoanoslistastr.add("INFANTIL " + idadeInt);
 		} else if (idadeInt == 6) {
 			etapaensino = "ANOS INICIAIS";
 			etapaensinoid = 2;

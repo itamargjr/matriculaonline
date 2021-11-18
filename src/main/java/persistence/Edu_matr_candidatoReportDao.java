@@ -24,7 +24,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.matricularede_candidato, a.redeorigem_candidato, a.estciv_candidato,  " +
 				"  a.sexo_candidato, a.nacionalidade_candidato, a.email_candidato, " +
 				"  a.celular_candidato, a.fixo_candidato, a.bairro_candidato,  " +
-				"  a.irmaonaescola_candidato, a.nomeirmao_candidato,  " +
+				"  a.irmaonaescola_candidato, a.nomeirmao_candidato, a.cpf_candidato,  " +
 				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2,  " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
 				"  a.tipo_candidato, a.necespec_candidato, a.cid_candidato, " +
@@ -138,7 +138,8 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("tipo_candidato"), 
 					rs.getString("necespec_candidato"), 
 					rs.getString("cid_candidato"), 
-					rs.getString("descricao_cid10"));
+					rs.getString("descricao_cid10"), 
+					rs.getString("cpf_candidato"));
 			
 			lista.add(item);
 		}						  
@@ -165,7 +166,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.matricularede_candidato, a.redeorigem_candidato, a.estciv_candidato,  " +
 				"  a.sexo_candidato, a.nacionalidade_candidato, a.email_candidato, " +
 				"  a.celular_candidato, a.fixo_candidato, a.bairro_candidato,  " +
-				"  a.irmaonaescola_candidato, a.nomeirmao_candidato,  " +
+				"  a.irmaonaescola_candidato, a.nomeirmao_candidato, a.cpf_candidato, " +
 				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2,  " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
 				"  a.tipo_candidato, a.necespec_candidato, a.cid_candidato, " +
@@ -198,9 +199,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"    left outer join cid10 i on (a.cid_candidato = i.codigo_cid10),  " +
 				"  edu_matr_responsavel b, end_endereco h " +
 				"where " +
-				"  a.nascimento_candidato = '" + cand.getNascimento_candidato() + "' and " +
-				"  a.nome_candidato = '" + cand.getNome_candidato() + "' and " +
-				"  a.email_candidato = '" + cand.getEmail_candidato() + "' and " +
+				"  a.cpf_candidato = '" + cand.getNascimento_candidato() + "' and " +
 				"  a.ano_candidato = '" + cand.getAno_candidato() + "' and " +
 				"  a.id_responsavel = b.id_responsavel AND " +
 				"  a.id_candidato = h.identidade_endereco AND " +
@@ -284,7 +283,8 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("tipo_candidato"), 
 					rs.getString("necespec_candidato"), 
 					rs.getString("cid_candidato"), 
-					rs.getString("descricao_cid10"));
+					rs.getString("descricao_cid10"), 
+					rs.getString("cpf_candidato"));
 
 		}						  
 		
