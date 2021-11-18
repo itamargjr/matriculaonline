@@ -379,7 +379,9 @@ public class Edu_matr_candidatoBean {
 					String mensagesucesso = "";
 					
 					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
-						mensagesucesso = "MESAGEM ESPECÍFICA PARA PORTADORES DE NECESSIDADE ESPECIAL";
+						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
+										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
+										 "Solicitamos que nesse dia traga toda  documentação da criança, incluindo laudo e registro de acompanhamento médico.";
 					} else if (etapaensino.equalsIgnoreCase("EJA")) {
 						mensagesucesso = "Candidato a EJA deve ir diretamente na unidade escolhida para a " +
 					                     "matrícula sem necessidade de aguardar o resultado final " +

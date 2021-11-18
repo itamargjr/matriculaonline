@@ -221,10 +221,8 @@
 	      					<p:selectBooleanCheckbox value="#{edu_matr_candidatoBean.necespeccandidato}" itemLabel="Candidato é portador de necessidades especiais?" />
 	      				</div>
       					<div class="ObjetosColuna">
-							<p:outputLabel value="Tipo" />
-							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.cid_candidato}" styleClass="TamanhoSelectM">
-								<f:selectItems value="#{cid10Bean.cid10lista}"  var="cid" itemValue="#{cid.codigo_cid10}" itemLabel="#{cid.descricao_cid10}"/>							
-							</p:selectOneMenu>
+							<p:outputLabel value="CID" />
+							<p:inputText value="#{edu_matr_candidatoBean.candidato.cid_candidato}" styleClass="TamanhoM"/>							
 						</div> 
       				</div>
 	      		</p:panel>
