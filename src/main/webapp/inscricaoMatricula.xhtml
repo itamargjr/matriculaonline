@@ -69,16 +69,6 @@
 							</p:selectOneMenu>
 						</div>
 						<div class="ObjetosColuna">
-							<p:outputLabel value="Estado Civil" />
-							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.estciv_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe o estado civil">
-								<f:selectItem itemValue="" itemLabel="" />
-								<f:selectItem itemValue="S" itemLabel="Solteiro" />
-								<f:selectItem itemValue="C" itemLabel="Casado" /> 
-								<f:selectItem itemValue="V" itemLabel="Viúvo" />
-								<f:selectItem itemValue="D" itemLabel="Divorciado/Separado" />								
-							</p:selectOneMenu>
-						</div>
-						<div class="ObjetosColuna">
 							<p:outputLabel value="Nacionalidade" />
 							<p:selectOneMenu value="#{edu_matr_candidatoBean.candidato.nacionalidade_candidato}" styleClass="TamanhoSelectMIN" required="true" requiredMessage="por favor informe a nacionalidade">
 								<f:selectItem itemValue="" itemLabel="" />
@@ -194,7 +184,7 @@
       					</div>  
       					<div class="ObjetosColuna">
 							<p:outputLabel value="Tipo" />
-							<p:selectOneMenu value="#{edu_matr_candidatoBean.responsavel.tipo_responsavel}" styleClass="TamanhoSelectM" required="true" requiredMessage="por favor informe o bairro">
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.responsavel.tipo_responsavel}" styleClass="TamanhoSelectM">
 								<f:selectItem itemValue="" itemLabel="" />
 								<f:selectItem itemValue="P" itemLabel="Pai" />
 								<f:selectItem itemValue="M" itemLabel="Mãe" /> 
@@ -207,7 +197,7 @@
       				<div class="ObjetosLinha">
       					<div class="ObjetosColuna">
       						<p:outputLabel value="Email Responsavel"/>
-      						<p:inputText value="#{edu_matr_candidatoBean.responsavel.email_responsavel}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o email do responsável"/>
+      						<p:inputText value="#{edu_matr_candidatoBean.responsavel.email_responsavel}" styleClass="TamanhoM"/>
       					</div>
       					<div class="ObjetosColuna">
       						<p:outputLabel value="Telefone Responsavel"/>

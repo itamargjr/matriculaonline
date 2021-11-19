@@ -294,18 +294,24 @@ public class Edu_matr_candidatoBean {
 
 		//System.out.println("Concluindo inscrição");
 		
-		candidato.setAno_candidato(2022);
-		candidato.setTipo_candidato("E");
-		
-		if (necespeccandidato) {
-			candidato.setNecespec_candidato("S");
-		} else {
-			candidato.setNecespec_candidato("N");
-		}
-		
-		System.out.println("Candidato: " + candidato);
-		
-		try {						
+		try {	
+			
+			if ( ((candidato.getEmail_candidato() == null)||(candidato.getEmail_candidato().equalsIgnoreCase(""))) && 
+					 ((responsavel.getEmail_responsavel() == null)||(responsavel.getEmail_responsavel().equalsIgnoreCase("")))	) {				
+				
+				throw new Exception("Informe o email do candidato ou o email do responsável");
+			} 
+			
+			candidato.setAno_candidato(2022);
+			candidato.setTipo_candidato("E");
+			
+			if (necespeccandidato) {
+				candidato.setNecespec_candidato("S");
+			} else {
+				candidato.setNecespec_candidato("N");
+			}
+			
+			System.out.println("Candidato: " + candidato);
 			
 			Edu_matr_candidatoDao cd = new Edu_matr_candidatoDao();
 			
@@ -323,19 +329,24 @@ public class Edu_matr_candidatoBean {
 				
 				// Vou recuperar os Ids das escolhas do candidato
 				
-				for (int i = 0; i < escolasselecionadas.size(); i++) {
-					
-					for (int j = 0; j < modensinovagaslista.size(); j++) {
-						if (escolasselecionadas.get(i)==modensinovagaslista.get(j).getNome_escola()) {
-							if (i==0) {
-								candidato.setId_modensinovagas1(modensinovagaslista.get(j).getId_modensinovagas());
-							} else if (i==1) {
-								candidato.setId_modensinovagas2(modensinovagaslista.get(j).getId_modensinovagas());
-							} else {
-								candidato.setId_modensinovagas3(modensinovagaslista.get(j).getId_modensinovagas());
+				// Não vou registrar escolhas para candidatos da EJA, pois de 15 a 18 devem ir na semed e acima de 18 podem ir direto nas escolas
+				// E candidatos com necessidade especial devem ir na semed
+				
+				if ((Integer.parseInt(idade)<15)&&(candidato.getNecespec_candidato().equalsIgnoreCase("N"))) {
+					for (int i = 0; i < escolasselecionadas.size(); i++) {
+						
+						for (int j = 0; j < modensinovagaslista.size(); j++) {
+							if (escolasselecionadas.get(i)==modensinovagaslista.get(j).getNome_escola()) {
+								if (i==0) {
+									candidato.setId_modensinovagas1(modensinovagaslista.get(j).getId_modensinovagas());
+								} else if (i==1) {
+									candidato.setId_modensinovagas2(modensinovagaslista.get(j).getId_modensinovagas());
+								} else {
+									candidato.setId_modensinovagas3(modensinovagaslista.get(j).getId_modensinovagas());
+								}
 							}
-						}
-					}									
+						}									
+					}
 				}
 				
 				//System.out.println("Gravando Responsável e recuperando ID");
@@ -372,7 +383,7 @@ public class Edu_matr_candidatoBean {
 				if (idcandidato == 0) {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Houve um erro na gravação do candidato", "")); // passa a mensagem
 				} else {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Candidato gravado com sucesso", "")); // passa a mensagem
+					//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Candidato gravado com sucesso", "")); // passa a mensagem
 					
 					FacesContext context = FacesContext.getCurrentInstance();
 					
@@ -381,16 +392,22 @@ public class Edu_matr_candidatoBean {
 					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
 						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
 										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
-										 "Solicitamos que nesse dia traga toda  documentação da criança, incluindo laudo e registro de acompanhamento médico.";
+										 "Solicitamos que nesse dia traga toda  documentação da criança, incluindo laudo e registro de acompanhamento médico.\n" +
+										 "A confirmação da sua pré-matrícula foi para o email indicado.";
+					} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
+						mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
+			                     		 "matrícula sem necessidade de aguardar o resultado final " +
+			                     		 "(Classificação)";
 					} else if (etapaensino.equalsIgnoreCase("EJA")) {
-						mensagesucesso = "Candidato a EJA deve ir diretamente na unidade escolhida para a " +
+						mensagesucesso = "Candidato a EJA com idade a partir de 18 anos deve ir diretamente na unidade escolhida para a " +
 					                     "matrícula sem necessidade de aguardar o resultado final " +
 					                     "(Classificação)";
 					} else {
 						mensagesucesso = "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
 	 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
 	 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
-	 								"nilopolisdigital.com/matriculasonline";
+	 								"nilopolisdigital.com/matriculasonline. \n " +
+	 								"A confirmação da sua pré-matrícula foi para o email indicado.";
 					}	
 					
 					limpaformulario();					

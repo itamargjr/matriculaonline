@@ -200,7 +200,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"    left outer join cid10 i on (a.cid_candidato = i.codigo_cid10),  " +
 				"  edu_matr_responsavel b, end_endereco h " +
 				"where " +
-				"  a.cpf_candidato = '" + cand.getNascimento_candidato() + "' and " +
+				"  a.cpf_candidato = '" + cand.getCpf_candidato() + "' and " +
 				"  a.ano_candidato = '" + cand.getAno_candidato() + "' and " +
 				"  a.id_responsavel = b.id_responsavel AND " +
 				"  a.id_candidato = h.identidade_endereco AND " +
