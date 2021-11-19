@@ -224,7 +224,7 @@
 						</div>
 						<div class="ObjetosColuna">
 							<p:outputLabel value="Ano Escolar a Cursar em 2022" />
-							<p:selectOneMenu value="#{edu_matr_candidatoBean.etapaensinoanos}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o ano escolar">
+							<p:selectOneMenu value="#{edu_matr_candidatoBean.etapaensinoanos}" styleClass="TamanhoM" required="true" requiredMessage="por favor informe o ano escolar" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" >
 								<f:selectItem itemValue="" itemLabel=""/>
 								<f:selectItems value="#{edu_matr_candidatoBean.modensinoanoslistastr}" />									
 								
@@ -247,26 +247,25 @@
 								<f:selectItem itemValue="" itemLabel=""/>
 								<f:selectItems value="#{edu_matr_candidatoBean.escolasorigem}" />													
 							</p:selectOneMenu>	
-					</div>			
-					<div class="ObjetosLinha">
 						</div>
+					</div>			
+					<div class="ObjetosLinha">						
 						<div class="ObjetosColuna">	
 							<p:outputLabel value="Segunda escolha" />
-        					<p:selectOneMenu id="comboescola2" value="#{edu_matr_candidatoBean.escola1}" styleClass="TamanhoM">
+        					<p:selectOneMenu id="comboescola2" value="#{edu_matr_candidatoBean.escola2}" styleClass="TamanhoM">
 								<f:selectItem itemValue="" itemLabel=""/>
 								<f:selectItems value="#{edu_matr_candidatoBean.escolasorigem}" />													
 							</p:selectOneMenu>	
-					</div>			
-					<div class="ObjetosLinha">			
 						</div>
+					</div>			
+					<div class="ObjetosLinha">							
 						<div class="ObjetosColuna">	
 							<p:outputLabel value="Terceira escolha" />
-        					<p:selectOneMenu id="comboescola3" value="#{edu_matr_candidatoBean.escola1}" styleClass="TamanhoM">
+        					<p:selectOneMenu id="comboescola3" value="#{edu_matr_candidatoBean.escola3}" styleClass="TamanhoM">
 								<f:selectItem itemValue="" itemLabel=""/>
 								<f:selectItems value="#{edu_matr_candidatoBean.escolasorigem}" />													
-							</p:selectOneMenu>				
-
-						</div>
+							</p:selectOneMenu>		
+						</div>						
 					</div>
 	      		</p:panel>	 
          			<br/>

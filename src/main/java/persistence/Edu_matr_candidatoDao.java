@@ -110,7 +110,7 @@ public class Edu_matr_candidatoDao extends Dao {
 		}
 		
 		if ((cand.getId_modensinovagas1()==null)||(cand.getId_modensinovagas1()==0)) {
-			stmt.setNull(19, Types.INTEGER);
+			stmt.setInt(19, 212); // criei uma escola SEMED, uma etapa fake e uma série fake para não dar pau nas procuras, nos casos em que nenhuma escola for escolhida
 		} else {
 			stmt.setInt(19, cand.getId_modensinovagas1());
 		}

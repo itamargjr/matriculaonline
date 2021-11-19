@@ -360,8 +360,12 @@ public class Edu_matr_candidatoBean {
 				// Não vou registrar escolhas para candidatos da EJA, pois de 15 a 18 devem ir na semed e acima de 18 podem ir direto nas escolas
 				// E candidatos com necessidade especial devem ir na semed
 				
+				System.out.println("Escola1: " + escola1);
+				System.out.println("Escola2: " + escola2);
+				System.out.println("Escola3: " + escola3);
+				
 				//if ((Integer.parseInt(idade)<16)&&(candidato.getNecespec_candidato().equalsIgnoreCase("N"))) {
-					for (int i = 0; i < escolasselecionadas.size(); i++) {
+				//	for (int i = 0; i < escolasselecionadas.size(); i++) {
 						
 						for (int j = 0; j < modensinovagaslista.size(); j++) {
 							if (modensinovagaslista.get(j).getNome_escola().equalsIgnoreCase(escola1)) {
@@ -381,7 +385,7 @@ public class Edu_matr_candidatoBean {
 //								}
 //							}
 						}									
-					}
+				//	}
 				//}
 				
 				// A gambiarra abaixo é para inverter a ordem apurada porque o sistema está ordenando na ordem inversa à escolha sabe lá Deus porque
