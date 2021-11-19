@@ -76,8 +76,8 @@ public class Edu_matr_candidatoDao extends Dao {
 	                  "redeorigem_candidato, estciv_candidato, sexo_candidato, nacionalidade_candidato, email_candidato, " +
 	                  "celular_candidato, fixo_candidato, bairro_candidato, irmaonaescola_candidato, nomeirmao_candidato, " + 
 	                  "id_escola, id_modensinovagas1, id_modensinovagas2, id_modensinovagas3, " +
-	                  "id_modensinovagas, ano_candidato, id_candidato, tipo_candidato, necespec_candidato, cid_candidato, cpf_candidato) " +
-		              "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
+	                  "id_modensinovagas, ano_candidato, id_candidato, tipo_candidato, necespec_candidato, cid_candidato, cpf_candidato, datainscricao_candidato) " +
+		              "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(sysdate(),'%d/%m/%Y'))";	
 	
 		
 	

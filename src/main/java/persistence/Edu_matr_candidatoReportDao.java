@@ -25,7 +25,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.sexo_candidato, a.nacionalidade_candidato, a.email_candidato, " +
 				"  a.celular_candidato, a.fixo_candidato, a.bairro_candidato,  " +
 				"  a.irmaonaescola_candidato, a.nomeirmao_candidato, a.cpf_candidato,  " +
-				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2,  " +
+				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2, a.datainscricao_candidato, " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
 				"  a.tipo_candidato, a.necespec_candidato, a.cid_candidato, " +
  
@@ -139,7 +139,8 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("necespec_candidato"), 
 					rs.getString("cid_candidato"), 
 					rs.getString("descricao_cid10"), 
-					rs.getString("cpf_candidato"));
+					rs.getString("cpf_candidato"), 
+					rs.getString("datainscricao_candidato"));
 			
 			lista.add(item);
 		}						  
@@ -165,7 +166,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.pai_candidato, a.nascimento_candidato, a.alunodarede_candidato,  " +
 				"  a.matricularede_candidato, a.redeorigem_candidato, a.estciv_candidato,  " +
 				"  a.sexo_candidato, a.nacionalidade_candidato, a.email_candidato, " +
-				"  a.celular_candidato, a.fixo_candidato, a.bairro_candidato,  " +
+				"  a.celular_candidato, a.fixo_candidato, a.bairro_candidato, a.datainscricao_candidato, " +
 				"  a.irmaonaescola_candidato, a.nomeirmao_candidato, a.cpf_candidato, " +
 				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2,  " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
@@ -284,7 +285,8 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("necespec_candidato"), 
 					rs.getString("cid_candidato"), 
 					rs.getString("descricao_cid10"), 
-					rs.getString("cpf_candidato"));
+					rs.getString("cpf_candidato"), 
+					rs.getString("datainscricao_candidato"));
 
 		}						  
 		
