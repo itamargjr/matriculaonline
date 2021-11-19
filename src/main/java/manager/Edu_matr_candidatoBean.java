@@ -68,6 +68,10 @@ public class Edu_matr_candidatoBean {
     public Integer etapaensinoid;
     public String dadosemailhtml;
     
+    public String escola1;
+    public String escola2;
+    public String escola3;
+    
     public Boolean irmaonaescola;
     public Boolean necespeccandidato;
 
@@ -84,6 +88,30 @@ public class Edu_matr_candidatoBean {
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "")); // passa a mensagem
 		}
+	}
+
+	public String getEscola1() {
+		return escola1;
+	}
+
+	public void setEscola1(String escola1) {
+		this.escola1 = escola1;
+	}
+
+	public String getEscola2() {
+		return escola2;
+	}
+
+	public void setEscola2(String escola2) {
+		this.escola2 = escola2;
+	}
+
+	public String getEscola3() {
+		return escola3;
+	}
+
+	public void setEscola3(String escola3) {
+		this.escola3 = escola3;
 	}
 
 	public Boolean getNecespeccandidato() {
@@ -319,10 +347,10 @@ public class Edu_matr_candidatoBean {
 			
 			if (Candidatojaexiste) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este candidato já possui inscrição", "")); // passa a mensagem
-			} else if (escolasselecionadas.size()==0) {
+			} else if ((escola1.equalsIgnoreCase(""))&&(escola2.equalsIgnoreCase(""))&&(escola3.equalsIgnoreCase(""))) { //(escolasselecionadas.size()==0) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alguma opção de escola deve ser escolhida", "")); // passa a mensagem
-			} else if (escolasselecionadas.size()>3) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Por favor, selecione no máximo 3 (TRÊS) opções de escola", "")); // passa a mensagem
+//			} else if (escolasselecionadas.size()>3) {
+//				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Por favor, selecione no máximo 3 (TRÊS) opções de escola", "")); // passa a mensagem
 			} else {
 				
 				//System.out.println("Recuperando IDs das opções");
@@ -332,22 +360,46 @@ public class Edu_matr_candidatoBean {
 				// Não vou registrar escolhas para candidatos da EJA, pois de 15 a 18 devem ir na semed e acima de 18 podem ir direto nas escolas
 				// E candidatos com necessidade especial devem ir na semed
 				
-				if ((Integer.parseInt(idade)<15)&&(candidato.getNecespec_candidato().equalsIgnoreCase("N"))) {
+				//if ((Integer.parseInt(idade)<16)&&(candidato.getNecespec_candidato().equalsIgnoreCase("N"))) {
 					for (int i = 0; i < escolasselecionadas.size(); i++) {
 						
 						for (int j = 0; j < modensinovagaslista.size(); j++) {
-							if (escolasselecionadas.get(i)==modensinovagaslista.get(j).getNome_escola()) {
-								if (i==0) {
-									candidato.setId_modensinovagas1(modensinovagaslista.get(j).getId_modensinovagas());
-								} else if (i==1) {
-									candidato.setId_modensinovagas2(modensinovagaslista.get(j).getId_modensinovagas());
-								} else {
-									candidato.setId_modensinovagas3(modensinovagaslista.get(j).getId_modensinovagas());
-								}
-							}
+							if (modensinovagaslista.get(j).getNome_escola().equalsIgnoreCase(escola1)) {
+								candidato.setId_modensinovagas1(modensinovagaslista.get(j).getId_modensinovagas());
+							} else if (modensinovagaslista.get(j).getNome_escola().equalsIgnoreCase(escola2)) {
+								candidato.setId_modensinovagas2(modensinovagaslista.get(j).getId_modensinovagas());
+							} else if (modensinovagaslista.get(j).getNome_escola().equalsIgnoreCase(escola3)) {
+								candidato.setId_modensinovagas3(modensinovagaslista.get(j).getId_modensinovagas());
+							} 
+//							if (escolasselecionadas.get(i)==modensinovagaslista.get(j).getNome_escola()) {
+//								if (i==0) {
+//									candidato.setId_modensinovagas1(modensinovagaslista.get(j).getId_modensinovagas());
+//								} else if (i==1) {
+//									candidato.setId_modensinovagas2(modensinovagaslista.get(j).getId_modensinovagas());
+//								} else {
+//									candidato.setId_modensinovagas3(modensinovagaslista.get(j).getId_modensinovagas());
+//								}
+//							}
 						}									
 					}
-				}
+				//}
+				
+				// A gambiarra abaixo é para inverter a ordem apurada porque o sistema está ordenando na ordem inversa à escolha sabe lá Deus porque
+				
+//				Integer aux;
+//				
+//				if ((candidato.getId_modensinovagas3()!=null)&&(candidato.getId_modensinovagas3()!=0)) {
+//					aux = candidato.getId_modensinovagas3();
+//					candidato.setId_modensinovagas3(candidato.getId_modensinovagas1());
+//					candidato.setId_modensinovagas1(aux);
+//				} else if ((candidato.getId_modensinovagas2()!=null)&&(candidato.getId_modensinovagas2()!=0)) {
+//					aux = candidato.getId_modensinovagas2();
+//					candidato.setId_modensinovagas2(candidato.getId_modensinovagas1());
+//					candidato.setId_modensinovagas1(aux);
+//				}
+				
+				///////////// FIM DA GAMBIARRA
+				
 				
 				//System.out.println("Gravando Responsável e recuperando ID");
 				
@@ -392,7 +444,7 @@ public class Edu_matr_candidatoBean {
 					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
 						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
 										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
-										 "Solicitamos que nesse dia traga toda  documentação da criança, incluindo laudo e registro de acompanhamento médico.\n" +
+										 "Solicitamos que nesse dia traga toda documentação do candidato, incluindo laudo e registro de acompanhamento médico.\n" +
 										 "A confirmação da sua pré-matrícula foi para o email indicado.";
 					} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
 						mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
@@ -478,18 +530,22 @@ public class Edu_matr_candidatoBean {
 			
 			modensinoanoslistastr.add("1º ANO");
 			
-		} else if (idadeInt < 11) {
-			etapaensino = "ANOS INICIAIS";
-			etapaensinoid = 2;
-			
+//		} else if (idadeInt < 11) {
+//			etapaensino = "ANOS INICIAIS";
+//			etapaensinoid = 2;
+//			
+//			modensinoanoslistastr.add("2º ANO");
+//			modensinoanoslistastr.add("3º ANO");
+//			modensinoanoslistastr.add("4º ANO");
+//			modensinoanoslistastr.add("5º ANO");
+		} else if (idadeInt < 16) {
+			etapaensino = "ANOS INICIAIS E ANOS FINAIS";
+			etapaensinoid = 0;
+
 			modensinoanoslistastr.add("2º ANO");
 			modensinoanoslistastr.add("3º ANO");
 			modensinoanoslistastr.add("4º ANO");
 			modensinoanoslistastr.add("5º ANO");
-		} else if (idadeInt < 16) {
-			etapaensino = "ANOS FINAIS";
-			etapaensinoid = 3;
-			
 			modensinoanoslistastr.add("6º ANO");
 			modensinoanoslistastr.add("7º ANO");
 			modensinoanoslistastr.add("8º ANO");
@@ -525,7 +581,7 @@ public class Edu_matr_candidatoBean {
 			
 			modensinovagas = new Edu_escolas_modensinovagas();
 			
-			modensinovagas.setId_modensino(etapaensinoid);
+			modensinovagas.setId_modensino(modensinoanos.getId_modensino());// etapaensinoid);
 			modensinovagas.setId_modensinoanos(modensinoanos.getId_modensinoanos());
 			
 			Edu_escolas_modensinovagasDao ed = new Edu_escolas_modensinovagasDao();
@@ -542,6 +598,9 @@ public class Edu_matr_candidatoBean {
 		    
 //		    System.out.println(escolasorigem);
 			
+		    escola1 = "";
+		    escola2 = "";
+		    escola3 = "";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -715,6 +774,8 @@ public class Edu_matr_candidatoBean {
 		try {
 			
 			//System.out.println("Buscando candidato: " + candidatoreport);
+			
+			candidatoreport.setAno_candidato(2022); // pediram pra tirar da tela porque "confundia" os responsaveis
 			
 			candidatoreport = new Edu_matr_candidatoReportDao().findCandidatoConsulta(candidatoreport);
 			
