@@ -582,7 +582,13 @@ public class Edu_matr_candidatoBean {
 
 				byte[] pdf = JasperRunManager.runReportToPdf(arquivo, null, ds);
 					
-				String dest = candidatoreport.getEmail_candidato();
+				String dest = "";
+				
+				if ((candidatoreport.getEmail_candidato()!=null)&&(!candidatoreport.getEmail_candidato().equalsIgnoreCase(""))) {
+					dest = candidatoreport.getEmail_candidato();
+				} else if (candidatoreport.getEmail_responsavel()!=null) {
+					dest = candidatoreport.getEmail_responsavel();
+				}
 				
 				SendMail sm = new SendMail();
 				
@@ -616,7 +622,7 @@ public class Edu_matr_candidatoBean {
 		           		 "<strong>Sistema de Matrículas On Line 2022 - Prefeitura Municipal de Nilópolis</strong>"+
 		           		 "</td></tr></table>";
 	
-				String[] to = {dest, "itamar.gjr@gmail.com"}; 
+				String[] to = {dest, candidatoreport.getEmail_responsavel()}; 
 				
 				//System.out.println("para: " + to);
 							
