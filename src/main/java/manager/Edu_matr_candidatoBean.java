@@ -513,7 +513,7 @@ public class Edu_matr_candidatoBean {
 			
 			//System.out.println("Meses: " + meses);
 			
-			if (meses <=6){
+			if (meses <6){
 				etapaensino = null;
 				
 				FacesContext context = FacesContext.getCurrentInstance();
