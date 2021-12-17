@@ -820,7 +820,13 @@ public class Edu_matr_candidatoBean {
 	}
 	
 	public void imprimirClassificacao() {
-		imprimeCandidatoClass(candidatoreport.getId_candidato());
+		
+		if (candidatoreport.getId_modensinovagas()==null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Candidato não classificado", "")); 
+		} else {
+			imprimeCandidatoClass(candidatoreport.getId_candidato());
+		}		
+		
 	}	
 	
 	public String imprimeCandidatoClass(Integer IdCandidato){

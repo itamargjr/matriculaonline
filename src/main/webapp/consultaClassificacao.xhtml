@@ -49,6 +49,10 @@
       					<p:outputLabel value="#{edu_matr_candidatoBean.modensinovagas.descricao_modensino}" />						
       					<p:outputLabel value="#{edu_matr_candidatoBean.modensinovagas.descricao_modensinoanos}"/>						
       			</p:panelGrid>
+      			
+      			<br/>
+         			
+			    <p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.imprimirClassificacao()}" value="Imprimir Classificação" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
     		</p:panel>
     		<br/>
     		<p:panel rendered="#{edu_matr_candidatoBean.candidatoreport.id_escola1 gt 0}">	
@@ -203,9 +207,7 @@
 						</div>
 			        </p:tab>
 			    </p:tabView>	 
-         			<br/>
-         			
-			     	<p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.imprimirClassificacao()}" value="Imprimir Classificação" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+         			 
       		</p:panel>	
       	</h:form>
    	  		
