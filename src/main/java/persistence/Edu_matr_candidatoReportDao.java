@@ -28,6 +28,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2, a.datainscricao_candidato, " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
 				"  a.tipo_candidato, a.necespec_candidato, a.cid_candidato, " +
+				"  a.criterio_candidato, a.posicao1_candidato, a.posicao2_candidato, a.posicao3_candidato, " +
  
 				"  b.nome_responsavel, b.tipo_responsavel, b.cpf_responsavel,  " +
 				"  b.email_responsavel, b.celular_responsavel, b.identidade_responsavel,  " +
@@ -35,7 +36,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 
 				"  c.nome_escola, " +
 
-				"  d.id_escola as id_escola1, " +
+				"  d.id_escola as id_escola1, d.vagas_modensinovagas, " +
 
 				"  e.id_escola as id_escola2, " +
 
@@ -140,7 +141,12 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("cid_candidato"), 
 					rs.getString("descricao_cid10"), 
 					rs.getString("cpf_candidato"), 
-					rs.getString("datainscricao_candidato"));
+					rs.getString("datainscricao_candidato"),
+					rs.getInt("posicao1_candidato"), 
+					rs.getInt("posicao2_candidato"), 
+					rs.getInt("posicao3_candidato"),
+					rs.getString("criterio_candidato"),
+					rs.getInt("vagas_modensinovagas"));
 			
 			lista.add(item);
 		}						  
@@ -171,6 +177,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 				"  a.id_escola, a.id_modensinovagas1, a.id_modensinovagas2,  " +
 				"  a.id_modensinovagas3, a.id_modensinovagas, a.ano_candidato, " +
 				"  a.tipo_candidato, a.necespec_candidato, a.cid_candidato, " +
+				"  a.criterio_candidato, a.posicao1_candidato, a.posicao2_candidato, a.posicao3_candidato, " +
  
 				"  b.nome_responsavel, b.tipo_responsavel, b.cpf_responsavel,  " +
 				"  b.email_responsavel, b.celular_responsavel, b.identidade_responsavel,  " +
@@ -178,7 +185,7 @@ public class Edu_matr_candidatoReportDao extends Dao {
 
 				"  c.nome_escola, " +
 
-				"  d.id_escola as id_escola1, " +
+				"  d.id_escola as id_escola1, d.vagas_modensinovagas, " +
 
 				"  e.id_escola as id_escola2, " +
 
@@ -286,7 +293,12 @@ public class Edu_matr_candidatoReportDao extends Dao {
 					rs.getString("cid_candidato"), 
 					rs.getString("descricao_cid10"), 
 					rs.getString("cpf_candidato"), 
-					rs.getString("datainscricao_candidato"));
+					rs.getString("datainscricao_candidato"),
+					rs.getInt("posicao1_candidato"), 
+					rs.getInt("posicao2_candidato"), 
+					rs.getInt("posicao3_candidato"),
+					rs.getString("criterio_candidato"),
+					rs.getInt("vagas_modensinovagas"));
 
 		}						  
 		

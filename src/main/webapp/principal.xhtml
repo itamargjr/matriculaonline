@@ -13,6 +13,7 @@
                     <h:form>
                         <p:panelMenu class="AjusteMenuPrincipal"  stateful="false">
 	                        <p:submenu label="Principal" expanded="true">
+	                        		<p:menuitem onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" value="CLASSIFICAÇÃO" url="consultaClassificacao.xhtml" />
 	                                <p:menuitem onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" value="Faça sua Inscrição" url="inscricaoMatricula.xhtml" />	                                 	                                
 	                                <p:menuitem onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" value="Consulte sua Inscrição" url="consultaMatricula.xhtml" />
 	                                <p:menuitem onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" value="Cancelar Inscrição" url="cancelaMatricula.xhtml" />

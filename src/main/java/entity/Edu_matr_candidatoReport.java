@@ -70,6 +70,14 @@ public class Edu_matr_candidatoReport {
 	
 	private String cpf_candidato;
 	private String datainscricao_candidato;
+	
+	private Integer posicao1_candidato;
+	private Integer posicao2_candidato;
+	private Integer posicao3_candidato;
+	
+	private String criterio_candidato;
+	
+	private Integer vagas_modensinovagas;
 
 	public Edu_matr_candidatoReport(Integer id_candidato, Integer id_responsavel, String nome_candidato,
 			String mae_candidato, String pai_candidato, String nascimento_candidato, String alunodarede_candidato,
@@ -86,7 +94,8 @@ public class Edu_matr_candidatoReport {
 			String nome_escola1, String nome_escola2, String nome_escola3, String nome_escolaselecionada,
 			String descricao_modensino, String descricao_modensinoanos, String tipo_candidato,
 			String necespec_candidato, String cid_candidato, String descricao_cid10, String cpf_candidato,
-			String datainscricao_candidato) {
+			String datainscricao_candidato, Integer posicao1_candidato, Integer posicao2_candidato,
+			Integer posicao3_candidato, String criterio_candidato, Integer vagas_modensinovagas) {
 		super();
 		this.id_candidato = id_candidato;
 		this.id_responsavel = id_responsavel;
@@ -145,10 +154,55 @@ public class Edu_matr_candidatoReport {
 		this.descricao_cid10 = descricao_cid10;
 		this.cpf_candidato = cpf_candidato;
 		this.datainscricao_candidato = datainscricao_candidato;
+		this.posicao1_candidato = posicao1_candidato;
+		this.posicao2_candidato = posicao2_candidato;
+		this.posicao3_candidato = posicao3_candidato;
+		this.criterio_candidato = criterio_candidato;
+		this.vagas_modensinovagas = vagas_modensinovagas;
 	}
 
 	public Edu_matr_candidatoReport() {
 		super();
+	}
+
+	public Integer getPosicao1_candidato() {
+		return posicao1_candidato;
+	}
+
+	public void setPosicao1_candidato(Integer posicao1_candidato) {
+		this.posicao1_candidato = posicao1_candidato;
+	}
+
+	public Integer getPosicao2_candidato() {
+		return posicao2_candidato;
+	}
+
+	public void setPosicao2_candidato(Integer posicao2_candidato) {
+		this.posicao2_candidato = posicao2_candidato;
+	}
+
+	public Integer getPosicao3_candidato() {
+		return posicao3_candidato;
+	}
+
+	public void setPosicao3_candidato(Integer posicao3_candidato) {
+		this.posicao3_candidato = posicao3_candidato;
+	}
+
+	public String getCriterio_candidato() {
+		return criterio_candidato;
+	}
+
+	public void setCriterio_candidato(String criterio_candidato) {
+		this.criterio_candidato = criterio_candidato;
+	}
+
+	public Integer getVagas_modensinovagas() {
+		return vagas_modensinovagas;
+	}
+
+	public void setVagas_modensinovagas(Integer vagas_modensinovagas) {
+		this.vagas_modensinovagas = vagas_modensinovagas;
 	}
 
 	public String getDatainscricao_candidato() {
@@ -635,6 +689,9 @@ public class Edu_matr_candidatoReport {
 				+ ", descricao_modensino=" + descricao_modensino + ", descricao_modensinoanos="
 				+ descricao_modensinoanos + ", tipo_candidato=" + tipo_candidato + ", necespec_candidato="
 				+ necespec_candidato + ", cid_candidato=" + cid_candidato + ", descricao_cid10=" + descricao_cid10
-				+ ", cpf_candidato=" + cpf_candidato + ", datainscricao_candidato=" + datainscricao_candidato + "]";
+				+ ", cpf_candidato=" + cpf_candidato + ", datainscricao_candidato=" + datainscricao_candidato
+				+ ", posicao1_candidato=" + posicao1_candidato + ", posicao2_candidato=" + posicao2_candidato
+				+ ", posicao3_candidato=" + posicao3_candidato + ", criterio_candidato=" + criterio_candidato
+				+ ", vagas_modensinovagas=" + vagas_modensinovagas + "]";
 	}
 }

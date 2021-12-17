@@ -31,6 +31,7 @@ import persistence.Edu_matr_candidatoReportDao;
 import persistence.Edu_matr_responsavelDao;
 import persistence.End_enderecoDao;
 import report.DSReportCandidato;
+import report.DSReportCandidatoClass;
 import util.Biblioteca;
 import util.SendMail;
 
@@ -755,7 +756,7 @@ public class Edu_matr_candidatoBean {
 				
 				FacesContext.getCurrentInstance().responseComplete();
 				
-				OutputStream fileout = new FileOutputStream("relatoriopreped.pdf");	
+				OutputStream fileout = new FileOutputStream("inscricaocandidato.pdf");	
 				
 				fileout.write(pdf, 0, pdf.length);
 
@@ -782,6 +783,12 @@ public class Edu_matr_candidatoBean {
 			candidatoreport.setAno_candidato(2022); // pediram pra tirar da tela porque "confundia" os responsaveis
 			
 			candidatoreport = new Edu_matr_candidatoReportDao().findCandidatoConsulta(candidatoreport);
+			
+			if (candidatoreport.getId_modensinovagas()==null) {
+				modensinovagas = new Edu_escolas_modensinovagas();				
+			} else {
+				modensinovagas = new Edu_escolas_modensinovagasDao().findVaga(candidatoreport.getId_modensinovagas());
+			}
 			
 			Edu_escolaDao ed = new Edu_escolaDao();
 			
@@ -810,6 +817,71 @@ public class Edu_matr_candidatoBean {
 	
 	public void imprimirInscricao() {
 		imprimeCandidato(candidatoreport.getId_candidato());
+	}
+	
+	public void imprimirClassificacao() {
+		imprimeCandidatoClass(candidatoreport.getId_candidato());
+	}	
+	
+	public String imprimeCandidatoClass(Integer IdCandidato){
+		
+		if ((IdCandidato==null)||(IdCandidato==0)) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nenhum candidato encontrado para imprimir", "")); // passa a mensagem
+		} else {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			
+			try{		
+				
+				List<Edu_matr_candidatoReport> lista = new Edu_matr_candidatoReportDao().findCandidato(IdCandidato);
+				
+				candidatoreport = lista.get(0);
+				
+				if (candidatoreport.getId_modensinovagas()==null) {
+					modensinovagas = new Edu_escolas_modensinovagas();				
+				} else {
+					modensinovagas = new Edu_escolas_modensinovagasDao().findVaga(candidatoreport.getId_modensinovagas());
+				}
+
+				DSReportCandidatoClass ds = new DSReportCandidatoClass(lista, modensinovagas);
+				
+				InputStream arquivo = FacesContext.getCurrentInstance()
+					.getExternalContext().getResourceAsStream("/candidatoClassificado.jasper");	
+
+				byte[] pdf = JasperRunManager.runReportToPdf(arquivo, null, ds);
+					
+				HttpServletResponse res = (HttpServletResponse) FacesContext
+						.getCurrentInstance().getExternalContext().getResponse();
+					
+				res.setContentType("application/pdf");
+				
+				res.setContentLength(pdf.length);
+					
+				OutputStream out = res.getOutputStream();
+
+				out.write(pdf, 0, pdf.length);
+
+				out.flush();	
+				
+				out.close();
+				
+				FacesContext.getCurrentInstance().responseComplete();
+				
+				OutputStream fileout = new FileOutputStream("classificacaocandidato.pdf");	
+				
+				fileout.write(pdf, 0, pdf.length);
+
+				fileout.flush();	
+
+				fileout.close();	
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				fc.addMessage("formcadastro", new FacesMessage("Erro ao imprimir: " + e.getMessage()));	
+			}
+		}
+		
+		return null;
 	}
 	
 	public void reenviarInscricao() {

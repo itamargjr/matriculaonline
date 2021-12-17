@@ -77,5 +77,40 @@ public class Edu_escolas_modensinovagasDao extends Dao {
 		
 		return lista;
 	}
+	
+	public Edu_escolas_modensinovagas findVaga(Integer IdVaga) throws Exception{
+		Edu_escolas_modensinovagas vaga =  new Edu_escolas_modensinovagas();
+		
+		open();
+		
+		String statement = "select " +
+		                   "  a.id_modensinovagas, a.ano_modensinovagas, a.id_escola, a.id_modensinoanos, a.vagas_modensinovagas, " +
+		                   "  b.id_modensino, b.descricao_modensinoanos, " +
+		                   "  c.descricao_modensino, " +
+		                   "  d.nome_escola " +
+						   "from " +
+		                   "  edu_escolas_modensinovagas a, edu_escolas_modensinoanos b, " +
+		                   "  edu_escolas_modensino c, edu_escolas d " +
+		                   "where " +
+		                   "  a.id_modensinoanos = b.id_modensinoanos and " +
+		                   "  b.id_modensino = c.id_modensino and " +
+		                   "  a.id_escola = d.id_escola and " +
+		                   "  a.id_modensinovagas = " + IdVaga;
+		
+		stmt = con.prepareStatement(statement);
+
+		rs = stmt.executeQuery();
+		
+		if (rs.next()) {
+			
+			vaga = new Edu_escolas_modensinovagas(rs.getInt("id_modensinovagas"), rs.getInt("ano_modensinovagas"), 
+					                                                      rs.getInt("id_escola"), rs.getInt("id_modensinoanos"), rs.getInt("vagas_modensinovagas"),
+					                                                      rs.getString("nome_escola"), rs.getString("descricao_modensinoanos"), 
+					                                                      rs.getInt("id_modensino"), rs.getString("descricao_modensino"));
+		}
+		
+		
+		return vaga;
+	}
 
 }
