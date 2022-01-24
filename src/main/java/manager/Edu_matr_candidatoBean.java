@@ -340,14 +340,18 @@ public class Edu_matr_candidatoBean {
 				candidato.setNecespec_candidato("N");
 			}
 			
-			System.out.println("Candidato: " + candidato);
+			//System.out.println("Candidato: " + candidato);
 			
 			Edu_matr_candidatoDao cd = new Edu_matr_candidatoDao();
 			
 			Boolean Candidatojaexiste = cd.testaCandidatoJaExiste(candidato);
 			
+			String escolamatriculada = cd.testaCandidatoJaMatriculado(candidato);
+			
 			if (Candidatojaexiste) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este candidato já possui inscrição", "")); // passa a mensagem
+			} else if ((escolamatriculada != null)&&(!escolamatriculada.equalsIgnoreCase(""))) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este candidato já foi matriculado na escola " + escolamatriculada, "")); // passa a mensagem
 			} else if ((escola1.equalsIgnoreCase(""))&&(escola2.equalsIgnoreCase(""))&&(escola3.equalsIgnoreCase(""))) { //(escolasselecionadas.size()==0) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alguma opção de escola deve ser escolhida", "")); // passa a mensagem
 //			} else if (escolasselecionadas.size()>3) {
@@ -361,9 +365,9 @@ public class Edu_matr_candidatoBean {
 				// Não vou registrar escolhas para candidatos da EJA, pois de 15 a 18 devem ir na semed e acima de 18 podem ir direto nas escolas
 				// E candidatos com necessidade especial devem ir na semed
 				
-				System.out.println("Escola1: " + escola1);
-				System.out.println("Escola2: " + escola2);
-				System.out.println("Escola3: " + escola3);
+				//System.out.println("Escola1: " + escola1);
+				//System.out.println("Escola2: " + escola2);
+				//System.out.println("Escola3: " + escola3);
 				
 				//if ((Integer.parseInt(idade)<16)&&(candidato.getNecespec_candidato().equalsIgnoreCase("N"))) {
 				//	for (int i = 0; i < escolasselecionadas.size(); i++) {
@@ -418,7 +422,13 @@ public class Edu_matr_candidatoBean {
 				
 				//System.out.println("Gravando candidato");				
 				
-				Integer idcandidato = cd.gravar(candidato);
+				//Integer idcandidato = cd.gravar(candidato);
+				
+				Integer idcandidato = cd.gravarfase2(candidato);
+				
+				Edu_escolas_modensinovagasDao vd = new Edu_escolas_modensinovagasDao();
+				
+				vd.DiminuiVaga(candidato.getId_modensinovagas1());
 				
 				//System.out.println("Gravando endereço");
 				
@@ -433,7 +443,9 @@ public class Edu_matr_candidatoBean {
 				
 				//System.out.println("Enviando email");
 				
-				enviaremailcandidato(idcandidato);
+//				enviaremailcandidato(idcandidato, 1);
+				
+				enviaremailcandidato(idcandidato, 2);
 				
 				//System.out.println("acabou");
 				
@@ -445,27 +457,31 @@ public class Edu_matr_candidatoBean {
 					FacesContext context = FacesContext.getCurrentInstance();
 					
 					String mensagesucesso = "";
+// FASE 1					
+//					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
+//						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
+//										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
+//										 "Solicitamos que nesse dia traga toda documentação do candidato, incluindo laudo e registro de acompanhamento médico.\n" +
+//										 "A confirmação da sua pré-matrícula foi para o email indicado.";
+//					} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
+//						mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
+//			                     		 "matrícula sem necessidade de aguardar o resultado final " +
+//			                     		 "(Classificação)";
+//					} else if (etapaensino.equalsIgnoreCase("EJA")) {
+//						mensagesucesso = "Candidato a EJA com idade a partir de 18 anos deve ir diretamente na unidade escolhida para a " +
+//					                     "matrícula sem necessidade de aguardar o resultado final " +
+//					                     "(Classificação)";
+//					} else {
+//						mensagesucesso = "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
+//	 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
+//	 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
+//	 								"nilopolisdigital.com/matriculasonline. \n " +
+//	 								"A confirmação da sua pré-matrícula foi para o email indicado.";
+//					}	
 					
-					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
-						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
-										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
-										 "Solicitamos que nesse dia traga toda documentação do candidato, incluindo laudo e registro de acompanhamento médico.\n" +
-										 "A confirmação da sua pré-matrícula foi para o email indicado.";
-					} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
-						mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
-			                     		 "matrícula sem necessidade de aguardar o resultado final " +
-			                     		 "(Classificação)";
-					} else if (etapaensino.equalsIgnoreCase("EJA")) {
-						mensagesucesso = "Candidato a EJA com idade a partir de 18 anos deve ir diretamente na unidade escolhida para a " +
-					                     "matrícula sem necessidade de aguardar o resultado final " +
-					                     "(Classificação)";
-					} else {
-						mensagesucesso = "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
-	 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
-	 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
-	 								"nilopolisdigital.com/matriculasonline. \n " +
-	 								"A confirmação da sua pré-matrícula foi para o email indicado.";
-					}	
+					mensagesucesso = "Você realizou a pré-matrícula Rede Municipal de Nilópolis em 2022. \n" +
+					                 "Confira o comprovante no seu email \n" +
+								     "Você deve apresentar este comprovante na escola no período de 31/01 a 04/02 para confirmar a matrícula.";
 					
 					limpaformulario();					
 			         
@@ -643,7 +659,7 @@ public class Edu_matr_candidatoBean {
 	    irmaonaescola = false;
 	}
 	
-	public void enviaremailcandidato(Integer IdCandidato){
+	public void enviaremailcandidato(Integer IdCandidato, Integer fase){
 		
 		if ((IdCandidato==null)||(IdCandidato==0)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nenhum candidato encontrado para enviar email", "")); // passa a mensagem
@@ -658,8 +674,16 @@ public class Edu_matr_candidatoBean {
 
 				DSReportCandidato ds = new DSReportCandidato(lista);
 				
+				String jasper = "";
+				
+				if (fase==1) {
+					jasper = "/candidato.jasper";
+				} else {
+					jasper = "/candidatoFASE2.jasper";
+				}
+				
 				InputStream arquivo = FacesContext.getCurrentInstance()
-					.getExternalContext().getResourceAsStream("/candidato.jasper");	
+					.getExternalContext().getResourceAsStream(jasper);	
 
 				byte[] pdf = JasperRunManager.runReportToPdf(arquivo, null, ds);
 					
@@ -673,41 +697,72 @@ public class Edu_matr_candidatoBean {
 				
 				SendMail sm = new SendMail();
 				
-				dadosemailhtml = "<br /> <strong>MATRÍCULA NILÓPOLIS 2022 - CANDIDATO <label>" +
-		           		 "</label> </strong><br /> <br />" +
-		           		 "<br /> Esta é uma confirmação da sua CANDIDATURA à Matrícula na rede de ensino do município de Nilópolis <br />" +
-		           		 "<hr />" +
-		           		 "<br /><br />Candidato         : " + candidatoreport.getNome_candidato() +
-		           		 "<br /><br />Data de Nascimento: " + candidatoreport.getNascimento_candidato() +
-		           		 "<br /><br />Bairro            : " + candidatoreport.getBairro_candidato() +
-		           		 "<br /><br />" + 
-		           		 "<br /><br />Responsável       : " + candidatoreport.getNome_responsavel() +
-		           		 "<br /><br />" + 		           		 
-		           		 "<br /><br />Opções de Escola  : " + 
-		           		 "<br /><br />" + 
-		           		 "<br /><br />1ª Opção          : " + candidatoreport.getNome_escola1() +		           		 		           		
-		           		 "<br /><br />2ª Opção          : " + candidatoreport.getNome_escola2() +
-		           		 "<br /><br />3ª Opção          : " + candidatoreport.getNome_escola3() +
-		           		 "<br /><br />" + 
-		           		 "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
-		           		 "<br />" +
-		           		 "Rede Municipal de Nilópolis em 2022. O resultado final  (Classificação) estará " +
-		           		 "<br />" +
-		           		 "disponível no dia 21/12/2021 no mesmo endereço eletrônico." +
-		           		 "<br />" +
-		           		 "(www.nilopolisdigital.com/matriculasonline)"+
-		           		 "<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>" +
-		           		 
-		           		 "<table align='center'><tr>"+
-		           		 "<td align='center'><img src='https://nilopolisdigital.com/imagens/logomatricula2022.jpg' alt='Matrículas On Line 2022' /><br /><br />"+
-		           		 "<strong>Sistema de Matrículas On Line 2022 - Prefeitura Municipal de Nilópolis</strong>"+
-		           		 "</td></tr></table>";
+				if (fase==1) {
+					dadosemailhtml = "<br /> <strong>MATRÍCULA NILÓPOLIS 2022 - CANDIDATO <label>" +
+			           		 "</label> </strong><br /> <br />" +
+			           		 "<br /> Esta é uma confirmação da sua CANDIDATURA à Matrícula na rede de ensino do município de Nilópolis <br />" +
+			           		 "<hr />" +
+			           		 "<br /><br />Candidato         : " + candidatoreport.getNome_candidato() +
+			           		 "<br /><br />Data de Nascimento: " + candidatoreport.getNascimento_candidato() +
+			           		 "<br /><br />Bairro            : " + candidatoreport.getBairro_candidato() +
+			           		 "<br /><br />" + 
+			           		 "<br /><br />Responsável       : " + candidatoreport.getNome_responsavel() +
+			           		 "<br /><br />" + 		           		 
+			           		 "<br /><br />Opções de Escola  : " + 
+			           		 "<br /><br />" + 
+			           		 "<br /><br />1ª Opção          : " + candidatoreport.getNome_escola1() +		           		 		           		
+			           		 "<br /><br />2ª Opção          : " + candidatoreport.getNome_escola2() +
+			           		 "<br /><br />3ª Opção          : " + candidatoreport.getNome_escola3() +
+			           		 "<br /><br />" + 
+			           		 "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
+			           		 "<br />" +
+			           		 "Rede Municipal de Nilópolis em 2022. O resultado final  (Classificação) estará " +
+			           		 "<br />" +
+			           		 "disponível no dia 21/12/2021 no mesmo endereço eletrônico." +
+			           		 "<br />" +
+			           		 "(www.nilopolisdigital.com/matriculasonline)"+
+			           		 "<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>" +
+			           		 
+			           		 "<table align='center'><tr>"+
+			           		 "<td align='center'><img src='https://nilopolisdigital.com/imagens/logomatricula2022.jpg' alt='Matrículas On Line 2022' /><br /><br />"+
+			           		 "<strong>Sistema de Matrículas On Line 2022 - Prefeitura Municipal de Nilópolis</strong>"+
+			           		 "</td></tr></table>";
+				} else {
+					dadosemailhtml = "<br /> <strong>MATRÍCULA NILÓPOLIS 2022 - SEGUNDA FASE <label>" +
+			           		 "</label> </strong><br /> <br />" +
+			           		 "<br /> Esta é uma confirmação da sua PRÉ-Matrícula - SEGUNDA FASE na rede de ensino do município de Nilópolis <br />" +
+			           		 "<hr />" +
+			           		 "<br /><br />Candidato         : " + candidatoreport.getNome_candidato() +
+			           		 "<br /><br />Data de Nascimento: " + candidatoreport.getNascimento_candidato() +
+			           		 "<br /><br />Bairro            : " + candidatoreport.getBairro_candidato() +
+			           		 "<br /><br />" + 
+			           		 "<br /><br />Responsável       : " + candidatoreport.getNome_responsavel() +
+			           		 "<br /><br />" + 		           		 
+			           		 "<br /><br />Opção de Escola  : " + 
+			           		 "<br /><br />" + 
+			           		 "<br /><br />Escola            : " + candidatoreport.getNome_escola1() +
+			           		 "<br /><br />" + 
+			           		 "Você realizou a pré-matrícula da " +
+			           		 "<br />" +
+			           		 "Rede Municipal de Nilópolis em 2022. " +
+			           		 "<br />" +
+			           		 "APRESENTE O COMPROVANTE EM ANEXO A ESTE EMAIL NA ESCOLA NO PERÍODO DE 31/01 a 04/02 PARA REALIZAR A MATRÍCULA" +
+			           		 "<br />" +
+			           		 "<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>" +
+			           		 
+			           		 "<table align='center'><tr>"+
+			           		 "<td align='center'><img src='https://nilopolisdigital.com/imagens/logomatricula2022.jpg' alt='Matrículas On Line 2022' /><br /><br />"+
+			           		 "<strong>Sistema de Matrículas On Line 2022 - Prefeitura Municipal de Nilópolis</strong>"+
+			           		 "</td></tr></table>";
+				}
+				
+				
 	
 				String[] to = {dest, candidatoreport.getEmail_responsavel()}; 
 				
 				//System.out.println("para: " + to);
 							
-				sm.sendMailAttachment("inscricaoeducacaonilopolis@gmail.com", to, "Matrícula Nilópolis 2022 - Candidato", dadosemailhtml, pdf);
+				sm.sendMailAttachment("inscricaoeducacaonilopolis@gmail.com", to, "Matrícula Nilópolis 2022 - FASE 2", dadosemailhtml, pdf);
 
 				//fc.addMessage("enviaremailprepedidos", new FacesMessage("Email enviado com sucesso! "));	
 				
@@ -893,7 +948,9 @@ public class Edu_matr_candidatoBean {
 	public void reenviarInscricao() {
 		
 		try {
-			enviaremailcandidato(candidatoreport.getId_candidato());
+			//enviaremailcandidato(candidatoreport.getId_candidato(), 1);
+			
+			enviaremailcandidato(candidatoreport.getId_candidato(), 2);
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email enviado com sucesso", ""));
 		} catch (Exception e) {
@@ -920,5 +977,13 @@ public class Edu_matr_candidatoBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "")); // passa a mensagem	
 		}	
 		
+	}	
+
+	public void testaCPF() {		
+		if (!Biblioteca.IsCpf(candidato.getCpf_candidato())) {
+			candidato.setCpf_candidato(null);
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF INVÁLIDO! Favor informar um CPF válido", ""));			
+		}
 	}
 }

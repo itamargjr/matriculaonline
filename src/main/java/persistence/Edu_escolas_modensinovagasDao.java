@@ -23,7 +23,8 @@ public class Edu_escolas_modensinovagasDao extends Dao {
 		                   "where " +
 		                   "  a.id_modensinoanos = b.id_modensinoanos and " +
 		                   "  b.id_modensino = c.id_modensino and " +
-		                   "  a.id_escola = d.id_escola ";
+		                   "  a.id_escola = d.id_escola and " +
+		                   "  a.vagas_modensinovagas > 0 ";
 		
 		if ((vagas.getAno_modensinovagas()!=null)&&(vagas.getAno_modensinovagas()!=0)) {
 			statement = statement + " and a.ano_modensinovagas = '" + vagas.getAno_modensinovagas() + "'";
@@ -111,6 +112,20 @@ public class Edu_escolas_modensinovagasDao extends Dao {
 		
 		
 		return vaga;
+	}
+	
+	public void DiminuiVaga(Integer Id) throws Exception{
+		open();
+		
+		String statement = "update edu_escolas_modensinovagas set vagas_modensinovagas = (vagas_modensinovagas - 1) " +
+		                   "where id_modensinovagas = " + Id;
+		
+		stmt = con.prepareStatement(statement);
+
+		stmt.execute();
+		
+		close();
+		
 	}
 
 }

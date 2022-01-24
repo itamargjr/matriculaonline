@@ -512,7 +512,7 @@ public class Biblioteca {
 	 		
 	 		idade = ano - anoNasc;
 	 		
-	 		System.out.println("ano - anoNasc: " + idade);
+	 		//System.out.println("ano - anoNasc: " + idade);
 	 		
 	 		// Calculando diferencas de mes e dia.
 	 		if (mes < mesNasc) {

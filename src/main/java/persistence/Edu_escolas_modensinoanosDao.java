@@ -21,7 +21,7 @@ public class Edu_escolas_modensinoanosDao extends Dao {
 		
 		stmt = con.prepareStatement(statement);
 		
-		System.out.println(statement);
+		//System.out.println(statement);
 		
 		rs = stmt.executeQuery();
 		
