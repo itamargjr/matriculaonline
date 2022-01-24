@@ -6,13 +6,17 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       >
+      
+   	<f:metadata> 
+ 		<f:event type="preRenderView" listener="#{edu_matr_candidatoBean.testainicio}"/> 
+ 	</f:metadata> 
 
 <ui:composition template="#{paginasBean._template}">  
     <ui:define name="corpo">
     
     	<p:messages />
 			
-		<p:panel header="MATRÍCULA SEGUNDA ETAPA - Preencha os dados para realizar a inscrição">
+		<p:panel header="MATRÍCULA SEGUNDA ETAPA - Preencha os dados para realizar a inscrição" rendered="#{!edu_matr_candidatoBean.bloqueia}">
 
     		<h:form id="formcadastro">
     		
@@ -245,6 +249,11 @@
 			     	<p:commandButton styleClass="BotaoPrimario" action="#{edu_matr_candidatoBean.ConcluirInscricao()}" value="Concluir Inscrição" ajax="false" onclick="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />      			
       			
       		</h:form>
+   	  </p:panel>
+   	  
+   	  <p:panel  rendered="#{edu_matr_candidatoBean.bloqueia}">
+   	  	<h3>A Matrícula da Segunda fase se iniciará às 23:59:59h do dia 24/01/2022</h3>
+    	<p:progressBar id="progressBarIndeterminate" style="height:6px" mode="indeterminate"/>   	  
    	  </p:panel>
 
     </ui:define>

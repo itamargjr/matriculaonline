@@ -3,7 +3,10 @@ package manager;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -75,6 +78,7 @@ public class Edu_matr_candidatoBean {
     
     public Boolean irmaonaescola;
     public Boolean necespeccandidato;
+    public Boolean bloqueia;
 
 	public Edu_matr_candidatoBean() {
 		
@@ -89,6 +93,14 @@ public class Edu_matr_candidatoBean {
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "")); // passa a mensagem
 		}
+	}
+
+	public Boolean getBloqueia() {
+		return bloqueia;
+	}
+
+	public void setBloqueia(Boolean bloqueia) {
+		this.bloqueia = bloqueia;
 	}
 
 	public String getEscola1() {
@@ -985,5 +997,12 @@ public class Edu_matr_candidatoBean {
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF INVÁLIDO! Favor informar um CPF válido", ""));			
 		}
+	}
+	
+	public void testainicio() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = new Date();
+		
+		bloqueia = dateFormat.format(date).equalsIgnoreCase("24/01/2022");
 	}
 }
