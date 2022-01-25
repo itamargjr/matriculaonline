@@ -114,17 +114,37 @@ public class Edu_escolas_modensinovagasDao extends Dao {
 		return vaga;
 	}
 	
-	public void DiminuiVaga(Integer Id) throws Exception{
+	public void AumentaVaga(Integer Id) throws Exception{
+		
 		open();
 		
-		String statement = "update edu_escolas_modensinovagas set vagas_modensinovagas = (vagas_modensinovagas - 1) " +
+		String statement = "update edu_escolas_modensinovagas set vagas_modensinovagas = (vagas_modensinovagas + 1) " +
 		                   "where id_modensinovagas = " + Id;
 		
 		stmt = con.prepareStatement(statement);
 
-		stmt.execute();
+		stmt.executeUpdate();
 		
 		close();
+		
+	}
+	
+	public Integer DiminuiVaga(Integer Id) throws Exception{
+		
+		Integer vagadiminuida;
+		
+		open();
+		
+		String statement = "update edu_escolas_modensinovagas set vagas_modensinovagas = (vagas_modensinovagas - 1) " +
+		                   "where id_modensinovagas = " + Id + " and vagas_modensinovagas > 0 ";
+		
+		stmt = con.prepareStatement(statement);
+
+		vagadiminuida = stmt.executeUpdate();
+		
+		close();
+		
+		return vagadiminuida;
 		
 	}
 

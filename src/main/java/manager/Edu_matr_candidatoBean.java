@@ -421,83 +421,84 @@ public class Edu_matr_candidatoBean {
 				
 				///////////// FIM DA GAMBIARRA
 				
-				
-				//System.out.println("Gravando Responsável e recuperando ID");
-				
-				Edu_matr_responsavelDao rd = new Edu_matr_responsavelDao();
-				
-				//System.out.println("Responsavel: " + responsavel);
-				
-				Integer idresp = rd.gravar(responsavel);
-				
-				candidato.setId_responsavel(idresp);
-				
-				//System.out.println("Gravando candidato");				
-				
-				//Integer idcandidato = cd.gravar(candidato);
-				
-				Integer idcandidato = cd.gravarfase2(candidato);
-				
 				Edu_escolas_modensinovagasDao vd = new Edu_escolas_modensinovagasDao();
-				
-				vd.DiminuiVaga(candidato.getId_modensinovagas1());
-				
-				//System.out.println("Gravando endereço");
-				
-				endereco.setIdentidade_endereco(idcandidato);
-				endereco.setTipo_endereco("C");
-				endereco.setUf_endereco("RJ");
-				endereco.setCodigo_municipio("3303203");
-				
-				End_enderecoDao ed = new End_enderecoDao();
-				
-				ed.gravar(endereco);
-				
-				//System.out.println("Enviando email");
-				
-//				enviaremailcandidato(idcandidato, 1);
-				
-				enviaremailcandidato(idcandidato, 2);
-				
-				//System.out.println("acabou");
-				
-				if (idcandidato == 0) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Houve um erro na gravação do candidato", "")); // passa a mensagem
+						
+				if (vd.DiminuiVaga(candidato.getId_modensinovagas1())>0) {
+					//System.out.println("Gravando Responsável e recuperando ID");
+					
+					Edu_matr_responsavelDao rd = new Edu_matr_responsavelDao();
+					
+					//System.out.println("Responsavel: " + responsavel);
+					
+					Integer idresp = rd.gravar(responsavel);
+					
+					candidato.setId_responsavel(idresp);
+					
+					//System.out.println("Gravando candidato");				
+					
+					//Integer idcandidato = cd.gravar(candidato);
+					
+					Integer idcandidato = cd.gravarfase2(candidato);
+
+					//System.out.println("Gravando endereço");
+					
+					endereco.setIdentidade_endereco(idcandidato);
+					endereco.setTipo_endereco("C");
+					endereco.setUf_endereco("RJ");
+					endereco.setCodigo_municipio("3303203");
+					
+					End_enderecoDao ed = new End_enderecoDao();
+					
+					ed.gravar(endereco);
+					
+					//System.out.println("Enviando email");
+					
+//					enviaremailcandidato(idcandidato, 1);
+					
+					enviaremailcandidato(idcandidato, 2);
+					
+					//System.out.println("acabou");
+					
+					if (idcandidato == 0) {
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Houve um erro na gravação do candidato", "")); // passa a mensagem
+					} else {
+						//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Candidato gravado com sucesso", "")); // passa a mensagem
+						
+						FacesContext context = FacesContext.getCurrentInstance();
+						
+						String mensagesucesso = "";
+	// FASE 1					
+//						if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
+//							mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
+//											 "Em breve  faremos contato para agendar entrevista presencial.\n" +
+//											 "Solicitamos que nesse dia traga toda documentação do candidato, incluindo laudo e registro de acompanhamento médico.\n" +
+//											 "A confirmação da sua pré-matrícula foi para o email indicado.";
+//						} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
+//							mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
+//				                     		 "matrícula sem necessidade de aguardar o resultado final " +
+//				                     		 "(Classificação)";
+//						} else if (etapaensino.equalsIgnoreCase("EJA")) {
+//							mensagesucesso = "Candidato a EJA com idade a partir de 18 anos deve ir diretamente na unidade escolhida para a " +
+//						                     "matrícula sem necessidade de aguardar o resultado final " +
+//						                     "(Classificação)";
+//						} else {
+//							mensagesucesso = "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
+//		 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
+//		 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
+//		 								"nilopolisdigital.com/matriculasonline. \n " +
+//		 								"A confirmação da sua pré-matrícula foi para o email indicado.";
+//						}	
+						
+						mensagesucesso = "Você realizou a pré-matrícula Rede Municipal de Nilópolis em 2022. \n" +
+						                 "Confira o comprovante no seu email \n" +
+									     "Você deve apresentar este comprovante na escola no período de 31/01 a 04/02 para confirmar a matrícula.";
+						
+						limpaformulario();					
+				         
+				        context.addMessage(null, new FacesMessage("Successful",  mensagesucesso) );
+					}
 				} else {
-					//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Candidato gravado com sucesso", "")); // passa a mensagem
-					
-					FacesContext context = FacesContext.getCurrentInstance();
-					
-					String mensagesucesso = "";
-// FASE 1					
-//					if (candidato.getNecespec_candidato().equalsIgnoreCase("S")) {
-//						mensagesucesso = "Sua pré - matrícula foi registrada.\n" +
-//										 "Em breve  faremos contato para agendar entrevista presencial.\n" +
-//										 "Solicitamos que nesse dia traga toda documentação do candidato, incluindo laudo e registro de acompanhamento médico.\n" +
-//										 "A confirmação da sua pré-matrícula foi para o email indicado.";
-//					} else if (((etapaensino.equalsIgnoreCase("EJA"))&& (Integer.parseInt(idade)<18))) {
-//						mensagesucesso = "Candidato a EJA de 15 até 18 anos deve ir diretamente na SEMED para a " +
-//			                     		 "matrícula sem necessidade de aguardar o resultado final " +
-//			                     		 "(Classificação)";
-//					} else if (etapaensino.equalsIgnoreCase("EJA")) {
-//						mensagesucesso = "Candidato a EJA com idade a partir de 18 anos deve ir diretamente na unidade escolhida para a " +
-//					                     "matrícula sem necessidade de aguardar o resultado final " +
-//					                     "(Classificação)";
-//					} else {
-//						mensagesucesso = "Você realizou a pré-matrícula para concorrer a uma vaga escolar na " +
-//	 								"Rede Municipal de Nilópolis em 2022. O resultado final (Classificação) estará " +
-//	 								"disponível no dia 21/12/2021 no mesmo endereço eletrônico. " +
-//	 								"nilopolisdigital.com/matriculasonline. \n " +
-//	 								"A confirmação da sua pré-matrícula foi para o email indicado.";
-//					}	
-					
-					mensagesucesso = "Você realizou a pré-matrícula Rede Municipal de Nilópolis em 2022. \n" +
-					                 "Confira o comprovante no seu email \n" +
-								     "Você deve apresentar este comprovante na escola no período de 31/01 a 04/02 para confirmar a matrícula.";
-					
-					limpaformulario();					
-			         
-			        context.addMessage(null, new FacesMessage("Successful",  mensagesucesso) );
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Vaga não está mais disponível", "")); // passa a mensagem
 				}
 
 			}
@@ -557,12 +558,12 @@ public class Edu_matr_candidatoBean {
 			etapaensinoid = 1;
 			
 			modensinoanoslistastr.add("INFANTIL " + idadeInt);
-		} else if (idadeInt == 6) {
-			etapaensino = "ANOS INICIAIS";
-			etapaensinoid = 2;
-			
-			modensinoanoslistastr.add("1º ANO");
-			
+//		} else if (idadeInt == 6) {
+//			etapaensino = "ANOS INICIAIS";
+//			etapaensinoid = 2;
+//			
+//			modensinoanoslistastr.add("1º ANO");
+//			
 //		} else if (idadeInt < 11) {
 //			etapaensino = "ANOS INICIAIS";
 //			etapaensinoid = 2;
@@ -575,6 +576,7 @@ public class Edu_matr_candidatoBean {
 			etapaensino = "ANOS INICIAIS E ANOS FINAIS";
 			etapaensinoid = 0;
 
+			modensinoanoslistastr.add("1º ANO");
 			modensinoanoslistastr.add("2º ANO");
 			modensinoanoslistastr.add("3º ANO");
 			modensinoanoslistastr.add("4º ANO");
@@ -758,7 +760,7 @@ public class Edu_matr_candidatoBean {
 			           		 "<br />" +
 			           		 "Rede Municipal de Nilópolis em 2022. " +
 			           		 "<br />" +
-			           		 "APRESENTE O COMPROVANTE EM ANEXO A ESTE EMAIL NA ESCOLA NO PERÍODO DE 31/01 a 04/02 PARA REALIZAR A MATRÍCULA" +
+			           		 "APRESENTE O COMPROVANTE EM ANEXO A ESTE EMAIL NA ESCOLA NO PERÍODO DE 25/01 a 28/01 PARA REALIZAR A MATRÍCULA" +
 			           		 "<br />" +
 			           		 "<div style='border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 1.0pt 0cm'>" +
 			           		 
@@ -976,6 +978,10 @@ public class Edu_matr_candidatoBean {
 		
 		try {
 			Edu_matr_candidatoReportDao cd = new Edu_matr_candidatoReportDao();
+			
+			Edu_escolas_modensinovagasDao vd = new Edu_escolas_modensinovagasDao();
+			
+			vd.AumentaVaga(candidatoreport.getId_modensinovagas1());
 			
 			cd.cancelaInscricao(candidatoreport);
 			
