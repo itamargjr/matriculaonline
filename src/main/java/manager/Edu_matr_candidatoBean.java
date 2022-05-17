@@ -804,7 +804,7 @@ public class Edu_matr_candidatoBean {
 				DSReportCandidato ds = new DSReportCandidato(lista);
 				
 				InputStream arquivo = FacesContext.getCurrentInstance()
-					.getExternalContext().getResourceAsStream("/candidato.jasper");	
+					.getExternalContext().getResourceAsStream("/candidatoFASE2.jasper");	
 
 				byte[] pdf = JasperRunManager.runReportToPdf(arquivo, null, ds);
 					
